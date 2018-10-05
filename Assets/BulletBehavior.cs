@@ -6,8 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class BulletBehavior : MonoBehaviour
 {
-    private float speed = 1f;
-    private float damage = 10f;
+    public float Speed = 1f;
+    public float Damage = 10f;
+    public float lifeTime = 1f;
 
     private Rigidbody2D body;
     private BoxCollider2D collider;
@@ -17,7 +18,8 @@ public class BulletBehavior : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         collider = GetComponent<BoxCollider2D>();
-        body.velocity = transform.right * speed;
+        body.velocity = transform.right * Speed;
+        Destroy(this,lifeTime);
     }
 
     void OnTriggerEnter2D()

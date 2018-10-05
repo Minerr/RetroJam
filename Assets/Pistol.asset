@@ -11,14 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82bff0e3958d8ed449390ddda8e11efa, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
+  AutoFire: 0
   DamagePerBullet: 10
-  FireRate: 1
-  ClipSize: 30
+  FireRate: 5
+  ClipSize: 20
   Accuracy: 1
   Recoil: 1
   BulletSpread: 1
   BulletsPerShot: 1
   BulletLife: 1
   BulletSpeed: 1
-  ReloadSpeed: 1
-  BulletCount: 30
+  ReloadSpeed: 2
+  BulletSpawnPoint: {x: 0, y: 0}
+  sprite: {fileID: 0}
