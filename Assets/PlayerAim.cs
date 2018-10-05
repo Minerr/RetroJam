@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterAim : MonoBehaviour
+public class PlayerAim : MonoBehaviour
 {
     private float ControllerThreshHold = 0.5f;
 	// Use this for initialization
