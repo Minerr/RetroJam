@@ -5,19 +5,19 @@ using UnityEngine.UI;
 
 public class PlayerHUD : MonoBehaviour {
 
-	public PlayerStats playerStats;
+	public PlayerController player;
 	public Image image;
 	public Slider healthbar;
 
 	// Use this for initialization
 	void Start () {
-		image.sprite = playerStats.playerImage;
+		image.sprite = player.PlayerPortrait;
 		healthbar.minValue = 0;
-		healthbar.maxValue = playerStats.maxHealth;
+		healthbar.maxValue = player.MAX_HEALTH;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		healthbar.normalizedValue = playerStats.currentHealth / playerStats.maxHealth;
+		healthbar.normalizedValue = player.GetPlayerNormalizedHealth();
 	}
 }

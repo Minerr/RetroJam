@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MainController : MonoBehaviour {
 
-	public PlayerStats playerOne;
-	public GameObject playerTwo;
+	public PlayerController playerOne;
+	public PlayerController playerTwo;
 
 	// Use this for initialization
 	void Start () {
@@ -16,11 +16,11 @@ public class MainController : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.Alpha1))
 		{
-			playerOne.currentHealth -= 10;
+			playerOne.TakeDamage(10);
 		}
 		if(Input.GetKeyDown(KeyCode.Alpha2))
 		{
-			playerOne.currentHealth += 10;
+			playerOne.GainHealth(25);
 		}
 
 		if(Input.GetKeyDown(KeyCode.Q))

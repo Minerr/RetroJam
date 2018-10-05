@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a201dac998cb9f49b99cae18e0197ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStats: {fileID: 11400000, guid: b77d8a280dbd1e545bc2efd6668dcc71, type: 2}
+  player: {fileID: 847231056}
   image: {fileID: 1136260448}
   healthbar: {fileID: 748767451}
 --- !u!1 &466558037
@@ -238,8 +238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f64d9b7c9a6c3e4b87d015b52417e23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerOne: {fileID: 11400000, guid: b77d8a280dbd1e545bc2efd6668dcc71, type: 2}
-  playerTwo: {fileID: 1384891908}
+  playerOne: {fileID: 847231056}
+  playerTwo: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,8 +462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809bda9cbe032c948a25c16e2954a984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: b77d8a280dbd1e545bc2efd6668dcc71, type: 2}
-  playerNumber: 1
+  PlayerPortrait: {fileID: 21300000, guid: 144abb862eb56be458f60ec162d24a04, type: 3}
+  _playerNumber: 1
 --- !u!4 &847231057
 Transform:
   m_ObjectHideFlags: 0
