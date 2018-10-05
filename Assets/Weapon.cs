@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Items/Weapon")]
+
 public class Weapon : ScriptableObject
 {
     public float DamagePerBullet = 10f;

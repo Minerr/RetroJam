@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Player/PlayerStats")]
 public class PlayerStats : ScriptableObject {
 
 	public readonly float maxHealth;
