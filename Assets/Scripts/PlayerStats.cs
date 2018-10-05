@@ -12,5 +12,5 @@ public class PlayerStats : ScriptableObject {
 	public Weapon equippedWeapon;
 	public Grenade equippedGrenade;
 	public SpecialItem equippedSpecialItem;
-	public Item equippedItem;
+	public HealingItem equippedItem;
 }
