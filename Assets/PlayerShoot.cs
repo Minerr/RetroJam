@@ -2,27 +2,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerShoot : MonoBehaviour
 {
     public Weapon weapon;
     private float cooldown = 0f;
+    private int bulletCount;
+    public GameObject bullet;
 
     private bool canShoot = true;
     // Use this for initialization
     void Start()
     {
+        bulletCount = weapon.ClipSize;
     }
 
     void Update()
     {
-
-        if (Input.GetAxis("FireMouse1") > 0.5)
+        if (weapon.AutoFire)
         {
-            Fire();
+            if (Input.GetKey(KeyCode.Space))
+            {
+                Fire();
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Fire();
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             StartCoroutine(Reload());
         }
@@ -30,10 +43,13 @@ public class PlayerShoot : MonoBehaviour
 
     void Fire()
     {
-        if (canShoot == true && Time.time >= cooldown)
+        if (canShoot == true)
         {
-            cooldown = Time.time + 1f / weapon.FireRate;
-            Shoot();
+            if (Time.time >= cooldown)
+            {
+                cooldown = Time.time + 1f / weapon.FireRate;
+                Shoot();
+            }
         }
         else
         {
@@ -43,9 +59,22 @@ public class PlayerShoot : MonoBehaviour
 
     void Shoot()
     {
-        Debug.Log("Shot");
-        weapon.BulletCount -= 1;
-        if (weapon.BulletCount <= 0)
+        float test = Random.Range(-1 + weapon.Accuracy, 1 - weapon.Accuracy);
+        Debug.Log(test);
+        Quaternion test2 = Quaternion.Euler(0, 0, test*20);
+        Debug.Log(test2);
+
+        var spawnPoint = transform.position + new Vector3(weapon.BulletSpawnPoint.x, weapon.BulletSpawnPoint.y, 0);
+        var bulletObject = Instantiate(bullet,spawnPoint,transform.rotation * test2);
+
+        var bulletScript = bulletObject.GetComponent<BulletBehavior>();
+        bulletScript.Damage = weapon.DamagePerBullet;
+        bulletScript.Speed = weapon.BulletSpeed;
+        bulletScript.lifeTime = weapon.BulletLife;
+
+        //Debug.Log("Shot");
+        bulletCount -= 1;
+        if (bulletCount <= 0)
         {
             canShoot = false;
         }
@@ -54,11 +83,11 @@ public class PlayerShoot : MonoBehaviour
     IEnumerator Reload()
     {
         Debug.Log("Reloading...");
-
+        canShoot = false;
         yield return new WaitForSeconds(weapon.ReloadSpeed);
 
         Debug.Log("Done Reloading");
-        weapon.BulletCount = weapon.ClipSize;
+        bulletCount = weapon.ClipSize;
         canShoot = true;
     }
 }
