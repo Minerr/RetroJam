@@ -38,4 +38,9 @@ sysinfo.txt
 Assets/Plugins/Editor/JetBrains/
 
 \.idea/\.idea\.RetroJam/
+<<<<<<< HEAD
 Assets/JESPER.unity
+=======
+
+Assets/Plugins/Editor/
+>>>>>>> 08e30b857581ed762a67d49ffbea10c149f68095
