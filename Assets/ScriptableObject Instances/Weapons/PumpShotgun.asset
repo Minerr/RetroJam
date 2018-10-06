@@ -14,15 +14,15 @@ MonoBehaviour:
   Icon: {fileID: 0}
   Sprite: {fileID: 0}
   AutoFire: 0
-  DamagePerBullet: 10
-  FireRate: 1
-  ClipSize: 30
-  Accuracy: 1
-  BulletSpread: 1
-  BulletsPerShot: 1
-  BulletLife: 1
-  BulletSpeed: 1
-  ReloadSpeed: 1
-  BulletSpawnPoint: {x: 0, y: 0}
-  BulletSprite: {fileID: 0}
+  DamagePerBullet: 4
+  FireRate: 23.7
+  ClipSize: 10
+  Accuracy: 0.546
+  BulletSpread: 20
+  BulletsPerShot: 5
+  BulletLife: 0.35
+  BulletSpeed: 60
+  ReloadSpeed: 2
+  BulletSpawnPoint: {x: 1.8, y: 0}
+  BulletSprite: {fileID: 21300000, guid: 2ac1663a7e46d5a438b2f02a42af86a0, type: 3}
   FireSound: {fileID: 0}
