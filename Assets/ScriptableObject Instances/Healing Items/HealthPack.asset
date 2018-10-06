@@ -11,6 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73405908e0a85a04c99d0d956f209b66, type: 3}
   m_Name: HealthPack
   m_EditorClassIdentifier: Assembly-CSharp::LargeItem
+  ItemName: HealthPack
   Icon: {fileID: 21300000, guid: d34d463b5499bd24f8523cbcbee8ee81, type: 3}
   Sprite: {fileID: 0}
-  HealingPercentage: 0
+  HealingPercentage: 80
+  HealingType: 0

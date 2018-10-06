@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
+public enum WeaponType
+{
+	Primary,
+	Secondary
+}
+
 [CreateAssetMenu(menuName = "Obtainable Objects/Weapon")]
 public class Weapon : Obtainable
 {
+	public WeaponType WeaponType;
     public bool AutoFire = false;
     [Range(0,100)]
     public float DamagePerBullet = 10f;

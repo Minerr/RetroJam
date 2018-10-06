@@ -11,6 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73405908e0a85a04c99d0d956f209b66, type: 3}
   m_Name: Defibrillator
   m_EditorClassIdentifier: Assembly-CSharp::LargeItem
+  ItemName: Defibrillator
   Icon: {fileID: 21300000, guid: 96f0ee69e87c2fb4fbe96231a0c137bb, type: 3}
   Sprite: {fileID: 0}
-  HealingPercentage: 0
+  HealingPercentage: 50
+  HealingType: 0

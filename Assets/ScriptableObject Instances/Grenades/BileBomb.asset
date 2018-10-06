@@ -11,5 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f47cd63214b6f6440b44e2fd0649592f, type: 3}
   m_Name: BileBomb
   m_EditorClassIdentifier: 
+  ItemName: BileBomb
   Icon: {fileID: 0}
   Sprite: {fileID: 0}
+  Radius: 0
+  BaseDamage: 0
