@@ -11,6 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82bff0e3958d8ed449390ddda8e11efa, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
+  Icon: {fileID: 0}
+  Sprite: {fileID: 0}
   AutoFire: 1
   DamagePerBullet: 10
   FireRate: 5
@@ -23,6 +25,4 @@ MonoBehaviour:
   BulletSpeed: 30
   ReloadSpeed: 2
   BulletSpawnPoint: {x: 1.8, y: 0}
-  Sprite: {fileID: 0}
   BulletSprite: {fileID: 21300000, guid: 144abb862eb56be458f60ec162d24a04, type: 3}
-  HUDImage: {fileID: 0}
