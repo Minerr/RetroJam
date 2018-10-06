@@ -13,16 +13,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 0}
   Sprite: {fileID: 0}
-  AutoFire: 0
+  AutoFire: 1
   DamagePerBullet: 10
-  FireRate: 1
-  ClipSize: 30
-  Accuracy: 1
+  FireRate: 30
+  ClipSize: 50
+  Accuracy: 0.7
   BulletSpread: 1
   BulletsPerShot: 1
-  BulletLife: 1
-  BulletSpeed: 1
-  ReloadSpeed: 1
-  BulletSpawnPoint: {x: 0, y: 0}
-  BulletSprite: {fileID: 0}
+  BulletLife: 2
+  BulletSpeed: 72.7
+  ReloadSpeed: 1.4
+  BulletSpawnPoint: {x: 1.8, y: 0}
+  BulletSprite: {fileID: 21300000, guid: 2ac1663a7e46d5a438b2f02a42af86a0, type: 3}
   FireSound: {fileID: 0}
