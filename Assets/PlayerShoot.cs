@@ -22,20 +22,20 @@ public class PlayerShoot : MonoBehaviour
     {
         if (weapon.AutoFire)
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetAxisRaw("Fire1") > 0.5)
             {
                 Fire();
             }
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetAxisRaw("Fire1") > 0.5)
             {
                 Fire();
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetButtonDown("Reload"))
         {
             StartCoroutine(Reload());
         }
@@ -86,7 +86,8 @@ public class PlayerShoot : MonoBehaviour
         float weaponAccuracy = Random.Range(-1 + weapon.Accuracy, 1 - weapon.Accuracy);
         Quaternion angleOffset = Quaternion.Euler(0, 0, weaponAccuracy*20);
 
-        var spawnPoint = transform.position + new Vector3(weapon.BulletSpawnPoint.x, weapon.BulletSpawnPoint.y, 0);
+        var test = new Vector3(weapon.BulletSpawnPoint.x, weapon.BulletSpawnPoint.y, 0);
+        var spawnPoint = transform.position + transform.TransformDirection(test);
         var bulletObject = Instantiate(bullet,spawnPoint,angle * angleOffset);
 
         var bulletScript = bulletObject.GetComponent<BulletBehavior>();
@@ -101,6 +102,9 @@ public class PlayerShoot : MonoBehaviour
         {
             canShoot = false;
         }
+
+        Quaternion recoil = Quaternion.Euler(0, 0, weapon.Recoil * 20);
+        transform.rotation = transform.rotation * recoil;
     }
 
     IEnumerator Reload()

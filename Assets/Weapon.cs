@@ -16,6 +16,7 @@ public class Weapon : ScriptableObject
     public int ClipSize = 30;
     [Range(0,1)]
     public float Accuracy = 1f;
+    [Range(0,1)]
     public float Recoil = 1f;
     [Range(0,180)]
     public float BulletSpread = 1f;
