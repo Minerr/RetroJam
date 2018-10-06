@@ -11,7 +11,7 @@ public class ArmoryController : MonoBehaviour {
 	private List<Obtainable> AllItems;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		AllItems = new List<Obtainable>();
 		AllItems.AddRange(Weapons);
 		AllItems.AddRange(HealingItems);

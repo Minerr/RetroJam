@@ -16,9 +16,9 @@ MonoBehaviour:
   Sprite: {fileID: 0}
   WeaponType: 1
   AutoFire: 0
-  DamagePerBullet: 10
+  DamagePerBullet: 30
   FireRate: 8
-  ClipSize: 100
+  ClipSize: 20
   Accuracy: 0.857
   BulletSpread: 0
   BulletsPerShot: 1
