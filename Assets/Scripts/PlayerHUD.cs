@@ -27,7 +27,7 @@ public class PlayerHUD : MonoBehaviour {
 	public Image GrenadeIcon;
 
 	public Slider WeaponClip;
-	public Text NumberOfClips;
+	public Text MagStats;
 
 	public Sprite DefaultPrimaryWeaponIcon;
 	public Sprite DefaultSecondaryWeaponIcon;
@@ -59,6 +59,8 @@ public class PlayerHUD : MonoBehaviour {
 
 	private void UpdateItemSlots()
 	{
+		string magCount = "\n∞";
+
 		// Weapons
 		if(Player.EquippedPrimaryWeapon != null)
 		{
@@ -67,12 +69,15 @@ public class PlayerHUD : MonoBehaviour {
 			WeaponClip.maxValue = Player.EquippedPrimaryWeapon.ClipSize;
 			WeaponClip.normalizedValue = 
 				Player.PrimaryWeaponBulletCount / WeaponClip.maxValue;
+
+			MagStats.text = Player.PrimaryWeaponBulletCount + magCount;
 		}
 		else
 		{
 			PrimaryWeaponIcon.color = UnequippedColor;
 			PrimaryWeaponIcon.sprite = DefaultPrimaryWeaponIcon;
 			WeaponClip.normalizedValue = 0;
+			MagStats.text = 0 + magCount;
 		}
 
 		if(Player.EquippedSecondaryWeapon != null)
@@ -82,12 +87,14 @@ public class PlayerHUD : MonoBehaviour {
 			WeaponClip.maxValue = Player.EquippedSecondaryWeapon.ClipSize;
 			WeaponClip.normalizedValue =
 				Player.SecondaryWeaponBulletCount / WeaponClip.maxValue;
+			MagStats.text = Player.SecondaryWeaponBulletCount + magCount;
 		}
 		else
 		{
 			SecondaryWeaponIcon.color = UnequippedColor;
 			SecondaryWeaponIcon.sprite = DefaultSecondaryWeaponIcon;
 			WeaponClip.normalizedValue = 0;
+			MagStats.text = 0 + magCount;
 		}
 
 		// Healing items
