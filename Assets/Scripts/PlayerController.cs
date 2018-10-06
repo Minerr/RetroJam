@@ -180,4 +180,22 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+
+	public void EquipItem(Obtainable item)
+	{
+		Type itemType = item.GetType();
+
+		if(itemType == typeof(Weapon))
+		{
+			EquipWeapon(item.name);
+		}
+		else if(itemType == typeof(HealingItem))
+		{
+			EquipHealingItem(item.name);
+		}
+		else if(itemType == typeof(Grenade))
+		{
+			EquipGrenade(item.name);
+		}
+	}
 }
