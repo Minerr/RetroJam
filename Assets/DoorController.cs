@@ -9,6 +9,7 @@ public class DoorController : MonoBehaviour {
 	[SerializeField] private MeshRenderer MeshRenderer;
 	[SerializeField] private Transform _player;
 	[SerializeField] private float _distToOpen;
+	[SerializeField] private BoxCollider2D _collider;
 	private bool _doorIsOpen;
 
 	// Use this for initialization
@@ -37,12 +38,14 @@ public class DoorController : MonoBehaviour {
 	void CloseDoor() {
 		_doorIsOpen = false;
 		MeshRenderer.enabled = true;
+		_collider.enabled = true;
 		SpriteRenderer.sprite = ClosedSprite;
 	}
 
 	void OpenDoor() {
 		_doorIsOpen = true;
 		MeshRenderer.enabled = false;
+		_collider.enabled = false;
 		SpriteRenderer.sprite = OpenSprite;
 	}
 }
