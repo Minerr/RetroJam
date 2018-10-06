@@ -28,7 +28,7 @@ public class Weapon : Obtainable
     public float BulletSpread = 1f;
     [Range(1,10)]
     public int BulletsPerShot = 1;
-    [Range(0.5f,10)]
+    [Range(0.1f,10)]
     public float BulletLife = 1f;
     [Range(50,200)]
     public float BulletSpeed = 1f;

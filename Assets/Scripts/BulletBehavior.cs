@@ -6,9 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class BulletBehavior : MonoBehaviour
 {
-    public float Speed = 1f;
-    public float Damage = 10f;
-    public float lifeTime = 1f;
+    public float Speed = 0f;
+    public float Damage = 0f;
+    public float lifeTime = 0f;
 
     private Rigidbody2D body;
     private BoxCollider2D collider;
@@ -24,11 +24,19 @@ public class BulletBehavior : MonoBehaviour
     void Start()
     {
         body.velocity = transform.right * Speed;
-        Destroy(gameObject,lifeTime);
+        Destroy(gameObject, lifeTime);
     }
 
-    void OnTriggerEnter2D()
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Bullet Hit Something");
+        if (collider.gameObject.CompareTag("Zombie"))
+        {
+            collider.gameObject.GetComponent<ZombieController>().TakeDamage(Damage);
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

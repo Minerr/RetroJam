@@ -58,10 +58,20 @@ public class PlayerShoot : MonoBehaviour
                 if (weapon.BulletsPerShot > 1)
                 {
                     MultiShot();
+                    bulletCount -= 1;
+                    if (bulletCount <= 0)
+                    {
+                        canShoot = false;
+                    }
                 }
                 else
                 {
                     Shoot(transform.rotation);
+                    bulletCount -= 1;
+                    if (bulletCount <= 0)
+                    {
+                        canShoot = false;
+                    }
                 }
             }
         }
@@ -104,12 +114,6 @@ public class PlayerShoot : MonoBehaviour
         bulletScript.SpriteRenderer.sprite = weapon.BulletSprite;
 
         //Debug.Log("Shot");
-        bulletCount -= 1;
-        if (bulletCount <= 0)
-        {
-            canShoot = false;
-        }
-
         //Quaternion recoil = Quaternion.Euler(0, 0, weapon.Recoil * 20);
         //transform.rotation = transform.rotation * recoil;
     }

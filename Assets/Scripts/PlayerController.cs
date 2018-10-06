@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
@@ -48,11 +49,18 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float amount)
     {
         _currentHealth -= amount;
+        Debug.Log(string.Format("i took {0} damage, current health {1}", amount, _currentHealth));
 
         if (_currentHealth <= 0)
         {
             _currentHealth = 0;
+            Death();
         }
+    }
+
+    public void Death()
+    {
+        Debug.Log("I Am Dead");
     }
 
     public void GainHealth(float amount)
