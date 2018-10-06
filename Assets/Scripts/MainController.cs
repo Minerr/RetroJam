@@ -20,7 +20,7 @@ public class MainController : MonoBehaviour {
 		}
 		if(Input.GetKeyDown(KeyCode.Alpha2))
 		{
-			playerOne.GainHealth(25);
+			playerOne.GainHealth(10);
 		}
 
 		if(Input.GetKeyDown(KeyCode.Q))
