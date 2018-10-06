@@ -27,8 +27,8 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody.velocity = new Vector2(horizontal * Speed, _rigidbody.velocity.y);
 
 
-        var t1 = Physics2D.Raycast(_rigidbody.position - new Vector2(0.45f, 1.01f), new Vector2(0, -1), 0.01f);
-        var t2 = Physics2D.Raycast(_rigidbody.position - new Vector2(-0.45f, 1.01f), new Vector2(0, -1), 0.01f);
+        var t1 = Physics2D.Raycast(_rigidbody.position - new Vector2(0.45f, 1.51f), new Vector2(0, -1), 0.01f);
+        var t2 = Physics2D.Raycast(_rigidbody.position - new Vector2(-0.45f, 1.51f), new Vector2(0, -1), 0.01f);
 
         if (t1.transform != null || t2.transform != null)
         {
