@@ -12,14 +12,19 @@ public class BulletBehavior : MonoBehaviour
 
     private Rigidbody2D body;
     private BoxCollider2D collider;
+    public SpriteRenderer SpriteRenderer;
 
+    void Awake()
+    {
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+        body = GetComponent<Rigidbody2D>();
+        collider = GetComponent<BoxCollider2D>();
+    }
     // Use this for initialization
     void Start()
     {
-        body = GetComponent<Rigidbody2D>();
-        collider = GetComponent<BoxCollider2D>();
         body.velocity = transform.right * Speed;
-        Destroy(this,lifeTime);
+        Destroy(gameObject,lifeTime);
     }
 
     void OnTriggerEnter2D()

@@ -48,7 +48,14 @@ public class PlayerShoot : MonoBehaviour
             if (Time.time >= cooldown)
             {
                 cooldown = Time.time + 1f / weapon.FireRate;
-                Shoot();
+                if (weapon.BulletsPerShot > 1)
+                {
+                    MultiShot();
+                }
+                else
+                {
+                    Shoot(transform.rotation);
+                }
             }
         }
         else
@@ -57,20 +64,36 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
-    void Shoot()
+    void MultiShot()
     {
-        float test = Random.Range(-1 + weapon.Accuracy, 1 - weapon.Accuracy);
-        Debug.Log(test);
-        Quaternion test2 = Quaternion.Euler(0, 0, test*20);
-        Debug.Log(test2);
+
+        for (int i = 0; i < weapon.BulletsPerShot; i++)
+        {
+            float weaponAccuracy = Random.Range(-1 + weapon.Accuracy, 1 - weapon.Accuracy);
+            float vinkel =  (weapon.BulletSpread / 2) - (weapon.BulletSpread / (weapon.BulletsPerShot - 1)) * i;
+
+            Quaternion angle = Quaternion.Euler(0, 0, vinkel);
+            var angleOffset = transform.rotation * angle;
+
+            Shoot(angleOffset);
+
+
+        }
+    }
+
+    void Shoot(Quaternion angle)
+    {
+        float weaponAccuracy = Random.Range(-1 + weapon.Accuracy, 1 - weapon.Accuracy);
+        Quaternion angleOffset = Quaternion.Euler(0, 0, weaponAccuracy*20);
 
         var spawnPoint = transform.position + new Vector3(weapon.BulletSpawnPoint.x, weapon.BulletSpawnPoint.y, 0);
-        var bulletObject = Instantiate(bullet,spawnPoint,transform.rotation * test2);
+        var bulletObject = Instantiate(bullet,spawnPoint,angle * angleOffset);
 
         var bulletScript = bulletObject.GetComponent<BulletBehavior>();
         bulletScript.Damage = weapon.DamagePerBullet;
         bulletScript.Speed = weapon.BulletSpeed;
         bulletScript.lifeTime = weapon.BulletLife;
+        bulletScript.SpriteRenderer.sprite = weapon.BulletSprite;
 
         //Debug.Log("Shot");
         bulletCount -= 1;
