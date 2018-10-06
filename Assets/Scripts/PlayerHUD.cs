@@ -16,7 +16,7 @@ public class PlayerHUD : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Portrait.sprite = Player.PlayerPortrait;
+		//Portrait.sprite = Player.PlayerPortrait;
 		Healthbar.minValue = 0;
 		Healthbar.maxValue = Player.MAX_HEALTH;
 		PlayerName.text = Player.GetName();
