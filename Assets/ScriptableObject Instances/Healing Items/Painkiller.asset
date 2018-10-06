@@ -9,8 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73405908e0a85a04c99d0d956f209b66, type: 3}
-  m_Name: Defibrillator
-  m_EditorClassIdentifier: Assembly-CSharp::LargeItem
-  Icon: {fileID: 21300000, guid: 96f0ee69e87c2fb4fbe96231a0c137bb, type: 3}
+  m_Name: Painkiller
+  m_EditorClassIdentifier: 
+  ItemName: Painkiller
+  Icon: {fileID: 21300000, guid: 8a685c4b52687f6469f045591899c3c1, type: 3}
   Sprite: {fileID: 0}
   HealingPercentage: 0
+  HealingType: 1
