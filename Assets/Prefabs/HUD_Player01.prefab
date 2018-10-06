@@ -510,7 +510,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 22
+    m_FontSize: 16
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -520,8 +520,8 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: "\u221E"
+    m_LineSpacing: 0.8
+  m_Text: "100\n\u221E"
 --- !u!114 &114091869625690492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -705,7 +705,7 @@ MonoBehaviour:
   SecondaryHealingIcon: {fileID: 114897774431526212}
   GrenadeIcon: {fileID: 114663811526264730}
   WeaponClip: {fileID: 114868252352864940}
-  NumberOfClips: {fileID: 114004737938546316}
+  MagStats: {fileID: 114004737938546316}
   DefaultPrimaryWeaponIcon: {fileID: 21300000, guid: 0ae2efd15c8f6e4488b7acd3f70bf9f9,
     type: 3}
   DefaultSecondaryWeaponIcon: {fileID: 21300000, guid: 0ae2efd15c8f6e4488b7acd3f70bf9f9,
