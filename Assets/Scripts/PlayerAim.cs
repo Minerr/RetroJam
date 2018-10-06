@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerAim : MonoBehaviour
 {
-    private float ControllerThreshHold = 0.5f;
+    private float ControllerThreshHold = 0.3f;
 	// Use this for initialization
 	void Start () {
 		

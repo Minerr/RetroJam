@@ -15,18 +15,21 @@ public class Weapon : Obtainable
     public int ClipSize = 30;
     [Range(0,1)]
     public float Accuracy = 1f;
-    public float Recoil = 1f;
+    //[Range(0,1)]
+    //public float Recoil = 1f;
     [Range(0,180)]
     public float BulletSpread = 1f;
     [Range(1,10)]
     public int BulletsPerShot = 1;
     [Range(0.5f,10)]
     public float BulletLife = 1f;
-    [Range(10,100)]
+    [Range(50,200)]
     public float BulletSpeed = 1f;
     [Range(1,10)]
     public float ReloadSpeed = 1f;
 
     public Vector2 BulletSpawnPoint = new Vector2(0,0);
     public Sprite BulletSprite;
+    public AudioClip FireSound;
+
 }
