@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Items/Weapon")]
-
-public class Weapon : ScriptableObject
+[CreateAssetMenu(menuName = "Obtainable Objects/Weapon")]
+public class Weapon : Obtainable
 {
     public bool AutoFire = false;
     [Range(0,100)]
@@ -29,7 +28,5 @@ public class Weapon : ScriptableObject
     public float ReloadSpeed = 1f;
 
     public Vector2 BulletSpawnPoint = new Vector2(0,0);
-    public Sprite Sprite;
     public Sprite BulletSprite;
-    public Sprite HUDImage;
 }
