@@ -113,6 +113,8 @@ public class PlayerShoot : MonoBehaviour
         bulletScript.lifeTime = weapon.BulletLife;
         bulletScript.SpriteRenderer.sprite = weapon.BulletSprite;
 
+        GetComponentInParent<PlayerController>().FireWeapon(weapon.WeaponType);
+
         //Debug.Log("Shot");
         //Quaternion recoil = Quaternion.Euler(0, 0, weapon.Recoil * 20);
         //transform.rotation = transform.rotation * recoil;
@@ -127,5 +129,6 @@ public class PlayerShoot : MonoBehaviour
         Debug.Log("Done Reloading");
         bulletCount = weapon.ClipSize;
         canShoot = true;
+        GetComponentInParent<PlayerController>().ReloadWeapon(weapon.WeaponType);
     }
 }
