@@ -1,59 +1,66 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
-public class PlayerController : MonoBehaviour {
-	[SerializeField]
-	private int _playerNumber;
-	private float _currentHealth;
+public class PlayerController : MonoBehaviour
+{
+    [SerializeField] private int _playerNumber;
+    private float _currentHealth;
 
-	public readonly float MAX_HEALTH = 100f;
+    public readonly float MAX_HEALTH = 100f;
 
-	public Sprite PlayerPortrait;
-	public Weapon EquippedWeapon;
-	public Grenade EquippedGrenade;
-	public PrimaryHealing EquippedPrimaryHealing;
-	public SecondaryHealing EquippedSecondaryHealing;
+    public Sprite PlayerPortrait;
+    public Weapon EquippedWeapon;
+    public Grenade EquippedGrenade;
+    public PrimaryHealing EquippedPrimaryHealing;
+    public SecondaryHealing EquippedSecondaryHealing;
 
-	public int PlayerNumber { get { return _playerNumber; } }
-	
-	// Use this for initialization
-	void Start () {
-		_currentHealth = MAX_HEALTH;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public int PlayerNumber
+    {
+        get { return _playerNumber; }
+    }
 
-	public float GetPlayerNormalizedHealth()
-	{
-		return _currentHealth / MAX_HEALTH;
-	}
+    // Use this for initialization
+    void Start()
+    {
+        _currentHealth = MAX_HEALTH;
+    }
 
-	public void TakeDamage(float amount)
-	{
-		_currentHealth -= amount;
+    // Update is called once per frame
+    void Update()
+    {
 
-		if(_currentHealth <= 0)
-		{
-			_currentHealth = 0;
-		}
-	}
+    }
 
-	public void GainHealth(float amount)
-	{
-		_currentHealth += amount;
+    public float GetPlayerNormalizedHealth()
+    {
+        return _currentHealth / MAX_HEALTH;
+    }
 
-		if(_currentHealth >= MAX_HEALTH)
-		{
-			_currentHealth = MAX_HEALTH;
-		}
-	}
+    public void TakeDamage(float amount)
+    {
+        _currentHealth -= amount;
 
-	public string GetName()
-	{
-		return "Player0" + _playerNumber; 
-	}
+        if (_currentHealth <= 0)
+        {
+            _currentHealth = 0;
+        }
+    }
+
+    public void GainHealth(float amount)
+    {
+        _currentHealth += amount;
+
+        if (_currentHealth >= MAX_HEALTH)
+        {
+            _currentHealth = MAX_HEALTH;
+        }
+    }
+
+    public string GetName()
+    {
+        return "Player0" + _playerNumber;
+    }
+
 }

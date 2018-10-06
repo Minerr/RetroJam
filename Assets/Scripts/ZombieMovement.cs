@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerMovement : MonoBehaviour
+[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(CircleCollider2D))]
+public class ZombieMovement : MonoBehaviour
 {
+
     private Rigidbody2D _rigidbody;
+    private CircleCollider2D _vision;
+    private GameObject _target;
 
     [SerializeField] private float Speed = 3f;
-
     [SerializeField] private float JumpSpeed = 3f;
+    [SerializeField] private float VisionRange = 10f;
 
     private bool isOnGround = true;
 
@@ -18,14 +22,18 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _vision = GetComponent<CircleCollider2D>();
+        _vision.radius = VisionRange;
     }
 
     // Update is called once per frame
     void Update()
     {
-        var horizontal = Input.GetAxis("Horizontal");
-        _rigidbody.velocity = new Vector2(horizontal * Speed, _rigidbody.velocity.y);
 
+        if (_target != null)
+        {
+            MoveToPlayer();
+        }
 
         var t1 = Physics2D.Raycast(_rigidbody.position - new Vector2(0.45f, 1.01f), new Vector2(0, -1), 0.01f);
         var t2 = Physics2D.Raycast(_rigidbody.position - new Vector2(-0.45f, 1.01f), new Vector2(0, -1), 0.01f);
@@ -45,8 +53,22 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void MoveToPlayer()
+    {
+        var horizontal = _target.transform.position.x - transform.position.x;
+        _rigidbody.velocity = new Vector2(horizontal * Speed, _rigidbody.velocity.y);
+    }
+
     void Jump()
     {
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, JumpSpeed);
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            _target = collider.gameObject;
+        }
     }
 }

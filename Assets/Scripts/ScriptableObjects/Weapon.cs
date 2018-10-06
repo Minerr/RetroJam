@@ -15,7 +15,8 @@ public class Weapon : Obtainable
     public int ClipSize = 30;
     [Range(0,1)]
     public float Accuracy = 1f;
-    public float Recoil = 1f;
+    //[Range(0,1)]
+    //public float Recoil = 1f;
     [Range(0,180)]
     public float BulletSpread = 1f;
     [Range(1,10)]
@@ -29,4 +30,6 @@ public class Weapon : Obtainable
 
     public Vector2 BulletSpawnPoint = new Vector2(0,0);
     public Sprite BulletSprite;
+    public AudioClip FireSound;
+
 }

@@ -10,6 +10,7 @@ public class PlayerShoot : MonoBehaviour
     private float cooldown = 0f;
     private int bulletCount;
     public GameObject bullet;
+    private bool shotLastFrame;
 
     private bool canShoot = true;
     // Use this for initialization
@@ -20,22 +21,28 @@ public class PlayerShoot : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetAxisRaw("Fire1") < 0.5)
+        {
+            shotLastFrame = false;
+        }
+
         if (weapon.AutoFire)
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetAxisRaw("Fire1") > 0.5)
             {
                 Fire();
             }
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetAxisRaw("Fire1") > 0.5 && shotLastFrame == false)
             {
+                shotLastFrame = true;
                 Fire();
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetButtonDown("Reload"))
         {
             StartCoroutine(Reload());
         }
@@ -86,7 +93,8 @@ public class PlayerShoot : MonoBehaviour
         float weaponAccuracy = Random.Range(-1 + weapon.Accuracy, 1 - weapon.Accuracy);
         Quaternion angleOffset = Quaternion.Euler(0, 0, weaponAccuracy*20);
 
-        var spawnPoint = transform.position + new Vector3(weapon.BulletSpawnPoint.x, weapon.BulletSpawnPoint.y, 0);
+        var test = new Vector3(weapon.BulletSpawnPoint.x, weapon.BulletSpawnPoint.y, 0);
+        var spawnPoint = transform.position + transform.TransformDirection(test);
         var bulletObject = Instantiate(bullet,spawnPoint,angle * angleOffset);
 
         var bulletScript = bulletObject.GetComponent<BulletBehavior>();
@@ -101,6 +109,9 @@ public class PlayerShoot : MonoBehaviour
         {
             canShoot = false;
         }
+
+        //Quaternion recoil = Quaternion.Euler(0, 0, weapon.Recoil * 20);
+        //transform.rotation = transform.rotation * recoil;
     }
 
     IEnumerator Reload()
