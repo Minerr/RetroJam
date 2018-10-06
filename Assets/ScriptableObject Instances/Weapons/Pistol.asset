@@ -20,7 +20,7 @@ MonoBehaviour:
   Accuracy: 0.857
   BulletSpread: 0
   BulletsPerShot: 1
-  BulletLife: 1
+  BulletLife: 2
   BulletSpeed: 148
   ReloadSpeed: 2
   BulletSpawnPoint: {x: 1.8, y: 0}
