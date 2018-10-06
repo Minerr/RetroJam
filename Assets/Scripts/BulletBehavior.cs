@@ -11,14 +11,12 @@ public class BulletBehavior : MonoBehaviour
     public float lifeTime = 0f;
 
     private Rigidbody2D body;
-    private BoxCollider2D collider;
     public SpriteRenderer SpriteRenderer;
 
     void Awake()
     {
         SpriteRenderer = GetComponent<SpriteRenderer>();
         body = GetComponent<Rigidbody2D>();
-        collider = GetComponent<BoxCollider2D>();
     }
     // Use this for initialization
     void Start()
@@ -27,11 +25,11 @@ public class BulletBehavior : MonoBehaviour
         Destroy(gameObject, lifeTime);
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerEnter2D(Collider2D col)
     {
-        if (collider.gameObject.CompareTag("Zombie"))
+        if (col.gameObject.CompareTag("Zombie"))
         {
-            collider.gameObject.GetComponent<ZombieController>().TakeDamage(Damage);
+            col.gameObject.GetComponent<ZombieController>().TakeDamage(Damage);
             Destroy(this.gameObject);
         }
         else

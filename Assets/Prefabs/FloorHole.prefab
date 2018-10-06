@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4111308149654558}
   - component: {fileID: 114222520143158456}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FloorHole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 61403375846461382}
   - component: {fileID: 50331869171751298}
   - component: {fileID: 251989246746585348}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FloorHoleColider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

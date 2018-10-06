@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 
-public class ZombieController : MonoBehaviour {
+public class ZombieController : MonoBehaviour
+{
 
     [SerializeField] private float MAX_HEALTH = 100f;
     [SerializeField] private float DAMAMGE = 10f;
@@ -18,30 +19,40 @@ public class ZombieController : MonoBehaviour {
     private float _currentHealth;
     private GameObject _target;
     private bool _canAttack = true;
-
+    private bool _canSeeTarget = false;
 
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         InvokeRepeating("FindPlayer", 0.0f, Random.Range(0.4f, 0.5f));
         _currentHealth = MAX_HEALTH;
     }
-	
+
+    void Update()
+    {
+        if (_canSeeTarget)
+        {
+            ZombieMovement.MoveToPlayer(_target);
+        }
+    }
+
 
     public void TakeDamage(float amount)
     {
-        Debug.Log(amount);
         _currentHealth -= amount;
 
+        ZombieMovement.StopMoving();
+        var body = GetComponent<Rigidbody2D>();
+        float knockBackX = Mathf.Sign(_target.transform.position.x - transform.position.x);
+        body.velocity = new Vector2(knockBackX * -10, body.velocity.y);
         if (_currentHealth <= 0)
         {
             _currentHealth = 0;
-            if (_currentHealth <= 0)
-            {
-                Death();
-            }
+
+            Death();
         }
     }
 
@@ -78,7 +89,7 @@ public class ZombieController : MonoBehaviour {
                 if (hit.collider.gameObject.CompareTag("Player"))
                 {
                     _target = hit.collider.gameObject;
-                    ZombieMovement.MoveToPlayer(_target);
+                    _canSeeTarget = true;
                     if (hit.distance < ATTACK_RANGE && _canAttack)
                     {
                         _canAttack = false;
@@ -88,6 +99,7 @@ public class ZombieController : MonoBehaviour {
                 }
                 else
                 {
+                    _canSeeTarget = false;
                     ZombieMovement.StopMoving();
                 }
             }
