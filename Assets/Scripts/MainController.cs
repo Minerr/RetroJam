@@ -24,9 +24,18 @@ public class MainController : MonoBehaviour {
 		{
 			ToggleGrenade("Molotov");
 		}
+		if(Input.GetKeyDown(KeyCode.Alpha3))
+		{
+			ToggleHealingItem("HealthPack", HealingType.Primary);
+		}
+		if(Input.GetKeyDown(KeyCode.Alpha4))
+		{
+			ToggleHealingItem("Painkiller", HealingType.Secondary);
+		}
 
 		if(Input.GetKeyDown(KeyCode.Q))
 		{
+			playerOne.TakeDamage(10);
 		}
 		if(Input.GetKeyDown(KeyCode.W))
 		{
@@ -54,6 +63,21 @@ public class MainController : MonoBehaviour {
 			else
 			{
 				playerOne.UnequipWeapon(type);
+			}
+		}
+	}
+
+	private void ToggleHealingItem(string name, HealingType type)
+	{
+		if(type == HealingType.Primary)
+		{
+			if(playerOne.EquippedPrimaryHealing == null)
+			{
+				playerOne.EquipHealingItem(name);
+			}
+			else
+			{
+				playerOne.UseHealingItem(type);
 			}
 		}
 	}

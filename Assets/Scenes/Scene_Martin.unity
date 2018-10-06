@@ -1925,6 +1925,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a201dac998cb9f49b99cae18e0197ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CriticalPercentage: 0.35
+  NormalPercentage: 0.75
+  HealthbarColors:
+  - {fileID: 744432522}
+  - {fileID: 456108833}
   Player: {fileID: 847231056}
   DefaultIcon: {fileID: 21300000, guid: 7d0ff4ea7edfa3d41ac0e9c7d7bd895a, type: 3}
   PlayerName: {fileID: 912549360}

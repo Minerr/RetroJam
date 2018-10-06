@@ -63,15 +63,12 @@ public class PlayerController : MonoBehaviour
         Debug.Log("I Am Dead");
     }
 
-    public void GainHealth(float amount)
+    public void GainHealth(float percentage)
     {
-        _currentHealth += amount;
-
-        if (_currentHealth >= MAX_HEALTH)
-        {
-            _currentHealth = MAX_HEALTH;
-        }
-    }
+		percentage = Mathf.Clamp(percentage, 0, MAX_HEALTH);
+		float lifegain = MAX_HEALTH * (percentage / 100);
+		_currentHealth = Mathf.Clamp(_currentHealth + lifegain, 0, MAX_HEALTH);
+	}
 
     public string GetName()
     {
@@ -81,7 +78,6 @@ public class PlayerController : MonoBehaviour
 	public void EquipWeapon(string name)
 	{
 		Weapon weapon = Armory.GetItem<Weapon>(name);
-		Debug.Log(weapon.name);
 
 		if(weapon != null)
 		{
@@ -154,18 +150,34 @@ public class PlayerController : MonoBehaviour
 
 	public void EquipHealingItem(string name)
 	{
-		Grenade grenade = Armory.GetItem<Grenade>(name);
+		HealingItem item = Armory.GetItem<HealingItem>(name);
 
-		if(grenade != null)
+		if(item != null)
 		{
-			EquippedGrenade = grenade;
+			if(item.HealingType == HealingType.Primary)
+			{
+				EquippedPrimaryHealing = item;
+			}
+			else
+			{
+				EquippedSecondaryHealing = item;
+			}
 		}
 	}
 
-	public void UseHealingItem()
+	public void UseHealingItem(HealingType type)
 	{
-		// Throw grenade;
-	
-		EquippedGrenade = null;
+		if(type == HealingType.Primary && 
+			EquippedPrimaryHealing != null)
+		{
+			GainHealth(EquippedPrimaryHealing.HealingPercentage);
+			EquippedPrimaryHealing = null;
+		}
+		else if(EquippedSecondaryHealing != null)
+		{
+			GainHealth(EquippedSecondaryHealing.HealingPercentage);
+			EquippedSecondaryHealing = null;
+		}
 	}
+
 }

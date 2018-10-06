@@ -5,6 +5,13 @@ using UnityEngine.UI;
 
 public class PlayerHUD : MonoBehaviour {
 
+	[Range(0,1)]
+	public float CriticalPercentage;
+	[Range(0,1)]
+	public float NormalPercentage;
+
+	public Image[] HealthbarColors;
+
 	public PlayerController Player;
 	public Sprite DefaultIcon;
 
@@ -44,8 +51,8 @@ public class PlayerHUD : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Healthbar.normalizedValue = Player.GetPlayerNormalizedHealth();
 
+		UpdateHealthbar();
 		UpdateItemSlots();
 	}
 
@@ -119,4 +126,34 @@ public class PlayerHUD : MonoBehaviour {
 		}
 	}
 
+
+	private void UpdateHealthbar()
+	{
+		Healthbar.normalizedValue = Player.GetPlayerNormalizedHealth();
+
+		float life = Healthbar.normalizedValue * 100f;
+
+		if(life >= Player.MAX_HEALTH * NormalPercentage)
+		{
+			ChangeHealthbarColor(new Color(0, 1, 0, 1));
+		}
+		else if(life < Player.MAX_HEALTH * NormalPercentage)
+		{
+			ChangeHealthbarColor(new Color(1, 0.64f, 0, 1));
+		}
+
+		if(life <= Player.MAX_HEALTH * CriticalPercentage)
+		{
+			ChangeHealthbarColor(new Color(1, 0, 0, 1));
+		}
+
+	}
+
+	private void ChangeHealthbarColor(Color color)
+	{
+		foreach(Image image in HealthbarColors)
+		{
+			image.color = color;
+		}
+	}
 }
