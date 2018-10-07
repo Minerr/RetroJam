@@ -60,6 +60,12 @@ public class PlayerHUD : MonoBehaviour {
 		UpdateItemSlots();
 	}
 
+	private void OnGUI()
+	{
+		UpdateHealthbar();
+		UpdateItemSlots();
+	}
+
 
 	private void UpdateItemSlots()
 	{
