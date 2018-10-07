@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
 	public Sprite PlayerPortrait;
 	public ArmoryController Armory;
 	public GameObject PlayerArm;
+    public Light MuzzleFlash;
 
 	// Properties
 	public Weapon EquippedPrimaryWeapon { get; private set; }
@@ -110,6 +111,11 @@ public class PlayerController : MonoBehaviour
 		{
 			SwapWeapon();
 		}
+
+	    if (Input.GetKeyDown(KeyCode.Alpha1))
+	    {
+            EquipWeapon("PumpShotgun");
+	    }
 
 	    if (Input.GetButtonDown("ResetLevel"))
 	    {
@@ -226,6 +232,8 @@ public class PlayerController : MonoBehaviour
 		{
 			if(Time.time >= cooldown)
 			{
+			    MuzzleFlash.intensity = 80f;
+                Invoke("TurnOffMuzzleFlash",0.03f);
 				cooldown = Time.time + 1f / weapon.FireRate;
 				if(weapon.BulletsPerShot > 1)
 				{
@@ -244,6 +252,11 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 	}
+
+    private void TurnOffMuzzleFlash()
+    {
+       MuzzleFlash.intensity = 0f;
+    }
 
 	private void RemoveBulletFromChamber()
 	{
