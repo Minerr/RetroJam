@@ -19,6 +19,9 @@ public class PlayerHUD : MonoBehaviour {
 	public Image Portrait;
 	public Slider Healthbar;
 
+	public Image CurrentWeaponIcon_Primary;
+	public Image CurrentWeaponIcon_Secondary;
+
 	public Image PrimaryWeaponIcon;
 	public Image SecondaryWeaponIcon;
 
@@ -35,7 +38,8 @@ public class PlayerHUD : MonoBehaviour {
 	public Sprite DefaultSecondaryHealingIcon;
 	public Sprite DefaultGrenadeIcon;
 
-	private readonly Color EquippedColor = new Color(1, 1, 1, 1);
+	private readonly Color FullyTransparent = new Color(1, 1, 1, 0);
+	private readonly Color FullyOpaque = new Color(1, 1, 1, 1);
 	private readonly Color UnequippedColor = new Color(1, 1, 1, 0.1f);
 
 	// Use this for initialization
@@ -59,48 +63,55 @@ public class PlayerHUD : MonoBehaviour {
 
 	private void UpdateItemSlots()
 	{
-		string magCount = "\n∞";
+		if(Player.CurrentWeaponType == WeaponType.Primary)
+		{
+			CurrentWeaponIcon_Primary.color = FullyOpaque;
+			CurrentWeaponIcon_Secondary.color = FullyTransparent;
+		}
+		else
+		{
+			CurrentWeaponIcon_Secondary.color = FullyOpaque;
+			CurrentWeaponIcon_Primary.color = FullyTransparent;
+		}
+
+		// Display Magazine stats
+		string magCount = "\n";
+		magCount += "∞";
+		//magCount += Player.CurrentWeaponMagCount;
+
+		WeaponClip.maxValue = Player.CurrentWeaponClipSize;
+		WeaponClip.normalizedValue =
+			Player.CurrentWeaponBulletCount / WeaponClip.maxValue;
+
+		MagStats.text = Player.CurrentWeaponBulletCount + magCount;
 
 		// Weapons
 		if(Player.EquippedPrimaryWeapon != null)
 		{
-			PrimaryWeaponIcon.color = EquippedColor;
+			PrimaryWeaponIcon.color = FullyOpaque;
 			PrimaryWeaponIcon.sprite = Player.EquippedPrimaryWeapon.Icon;
-			WeaponClip.maxValue = Player.EquippedPrimaryWeapon.ClipSize;
-			WeaponClip.normalizedValue = 
-				Player.PrimaryWeaponBulletCount / WeaponClip.maxValue;
-
-			MagStats.text = Player.PrimaryWeaponBulletCount + magCount;
 		}
 		else
 		{
 			PrimaryWeaponIcon.color = UnequippedColor;
 			PrimaryWeaponIcon.sprite = DefaultPrimaryWeaponIcon;
-			WeaponClip.normalizedValue = 0;
-			MagStats.text = 0 + magCount;
 		}
 
 		if(Player.EquippedSecondaryWeapon != null)
 		{
-			SecondaryWeaponIcon.color = EquippedColor;
+			SecondaryWeaponIcon.color = FullyOpaque;
 			SecondaryWeaponIcon.sprite = Player.EquippedSecondaryWeapon.Icon;
-			WeaponClip.maxValue = Player.EquippedSecondaryWeapon.ClipSize;
-			WeaponClip.normalizedValue =
-				Player.SecondaryWeaponBulletCount / WeaponClip.maxValue;
-			MagStats.text = Player.SecondaryWeaponBulletCount + magCount;
 		}
 		else
 		{
 			SecondaryWeaponIcon.color = UnequippedColor;
 			SecondaryWeaponIcon.sprite = DefaultSecondaryWeaponIcon;
-			WeaponClip.normalizedValue = 0;
-			MagStats.text = 0 + magCount;
 		}
 
 		// Healing items
 		if(Player.EquippedPrimaryHealing != null)
 		{
-			PrimaryHealingIcon.color = EquippedColor;
+			PrimaryHealingIcon.color = FullyOpaque;
 			PrimaryHealingIcon.sprite = Player.EquippedPrimaryHealing.Icon;
 		}
 		else
@@ -111,7 +122,7 @@ public class PlayerHUD : MonoBehaviour {
 
 		if(Player.EquippedSecondaryHealing != null)
 		{
-			SecondaryHealingIcon.color = EquippedColor;
+			SecondaryHealingIcon.color = FullyOpaque;
 			SecondaryHealingIcon.sprite = Player.EquippedSecondaryHealing.Icon;
 		}
 		else
@@ -123,7 +134,7 @@ public class PlayerHUD : MonoBehaviour {
 		//Grenade
 		if(Player.EquippedGrenade != null)
 		{
-			GrenadeIcon.color = EquippedColor;
+			GrenadeIcon.color = FullyOpaque;
 			GrenadeIcon.sprite = Player.EquippedGrenade.Icon;
 		}
 		else

@@ -10,45 +10,44 @@ public class MainController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		playerOne.EquipWeapon("Pistol");
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Alpha1))
-		{
-			ToggleWeapon("Pistol", WeaponType.Secondary);
-		}
-		if(Input.GetKeyDown(KeyCode.Alpha2))
-		{
-			ToggleGrenade("Molotov");
-		}
-		if(Input.GetKeyDown(KeyCode.Alpha3))
-		{
-			ToggleHealingItem("HealthPack", HealingType.Primary);
-		}
-		if(Input.GetKeyDown(KeyCode.Alpha4))
-		{
-			ToggleHealingItem("Painkiller", HealingType.Secondary);
-		}
+		//if(Input.GetKeyDown(KeyCode.Alpha1))
+		//{
+		//	ToggleWeapon("Pistol", WeaponType.Secondary);
+		//}
+		//if(Input.GetKeyDown(KeyCode.Alpha2))
+		//{
+		//	ToggleGrenade("Molotov");
+		//}
+		//if(Input.GetKeyDown(KeyCode.Alpha3))
+		//{
+		//	ToggleHealingItem("HealthPack", HealingType.Primary);
+		//}
+		//if(Input.GetKeyDown(KeyCode.Alpha4))
+		//{
+		//	ToggleHealingItem("Painkiller", HealingType.Secondary);
+		//}
 
-		if(Input.GetKeyDown(KeyCode.Q))
-		{
-			playerOne.TakeDamage(10);
-		}
-		if(Input.GetKeyDown(KeyCode.W))
-		{
-			
-		}
-		if(Input.GetKeyDown(KeyCode.E))
-		{
-			playerOne.FireWeapon(WeaponType.Secondary);
-		}
-		if(Input.GetKeyDown(KeyCode.R))
-		{
-			playerOne.ReloadWeapon(WeaponType.Secondary);
-		}
+		//if(Input.GetKeyDown(KeyCode.Q))
+		//{
+		//	playerOne.TakeDamage(10);
+		//}
+		//if(Input.GetKeyDown(KeyCode.W))
+		//{
+
+		//}
+		//if(Input.GetKeyDown(KeyCode.E))
+		//{
+		//	playerOne.FireWeapon(WeaponType.Secondary);
+		//}
+		//if(Input.GetKeyDown(KeyCode.R))
+		//{
+		//	playerOne.ReloadWeapon(WeaponType.Secondary);
+		//}
 
 	}
 
@@ -64,6 +63,10 @@ public class MainController : MonoBehaviour {
 			{
 				playerOne.UnequipWeapon(type);
 			}
+		}
+		else
+		{
+			playerOne.EquipWeapon("Pistol");
 		}
 	}
 

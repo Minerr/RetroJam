@@ -13,6 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Painkiller
   Icon: {fileID: 21300000, guid: 8a685c4b52687f6469f045591899c3c1, type: 3}
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: beed5275b882cce46bcdc576316d12ec, type: 3}
   HealingPercentage: 25
   HealingType: 1
