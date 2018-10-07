@@ -61,10 +61,12 @@ public class PlayerController : MonoBehaviour
 			if(value == WeaponType.Primary)
 			{
 				CurrentWeaponMagCount = _primaryMagCount;
+				GetComponent<PlayerShoot>().weapon = EquippedPrimaryWeapon;
 			}
 			else
 			{
 				CurrentWeaponMagCount = _secondaryMagCount;
+				GetComponent<PlayerShoot>().weapon = EquippedSecondaryWeapon;
 			}
 
 			_currentWeaponType = value;
