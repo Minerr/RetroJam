@@ -13,13 +13,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: SubmachineGun
   Icon: {fileID: 21300000, guid: 0ae2efd15c8f6e4488b7acd3f70bf9f9, type: 3}
-  Sprite: {fileID: 21300000, guid: 708a8512e872d4f4f857168a8d01f86e, type: 3}
+  Sprite: {fileID: 21300000, guid: 0ae2efd15c8f6e4488b7acd3f70bf9f9, type: 3}
   WeaponType: 0
   AutoFire: 1
-  DamagePerBullet: 10
+  DamagePerBullet: 14.8
   FireRate: 30
   ClipSize: 50
-  Accuracy: 0.7
+  Accuracy: 0.405
   BulletSpread: 1
   BulletsPerShot: 1
   BulletLife: 2

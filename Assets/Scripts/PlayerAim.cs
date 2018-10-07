@@ -21,6 +21,15 @@ public class PlayerAim : MonoBehaviour
 
 	    Vector2 dir = new Vector2(Vert, Hori);
 
+	    if (transform.parent.transform.position.x > transform.parent.transform.position.x + dir.y)
+	    {
+	        GetComponentInParent<SpriteRenderer>().flipX = true;
+	    }
+	    else
+	    {
+	        GetComponentInParent<SpriteRenderer>().flipX = false;
+        }
+
 	    if (dir.magnitude > ControllerThreshHold)
 	    {
 	        var dirNormal = dir.normalized;

@@ -40,7 +40,7 @@ public class ZombieMovement : MonoBehaviour
     {
         canMove = false;
         _rigidbody.velocity = new Vector2(0, _rigidbody.velocity.y);
-        Invoke("WakeBody", 0.2f);
+        Invoke("WakeBody", 0.1f);
 
     }
 

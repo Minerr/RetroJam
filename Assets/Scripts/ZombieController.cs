@@ -11,6 +11,7 @@ public class ZombieController : MonoBehaviour
     [SerializeField] private float DAMAMGE = 10f;
     [SerializeField] private float ATTACK_COOLDOWN = 1f;
     [SerializeField] private float ATTACK_RANGE = 1f;
+    [SerializeField] private float KNOCKBACK_MUL = 5f;
 
     public ZombieMovement ZombieMovement;
 
@@ -47,7 +48,7 @@ public class ZombieController : MonoBehaviour
         ZombieMovement.StopMoving();
         var body = GetComponent<Rigidbody2D>();
         float knockBackX = Mathf.Sign(_target.transform.position.x - transform.position.x);
-        body.velocity = new Vector2(knockBackX * -10, body.velocity.y);
+        body.velocity = new Vector2(knockBackX * -KNOCKBACK_MUL, body.velocity.y);
         if (_currentHealth <= 0)
         {
             _currentHealth = 0;

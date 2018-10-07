@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D _rigidbody;
 
+    private Animator _animator;
+
     [SerializeField] private float Speed = 3f;
 
     [SerializeField] private float JumpSpeed = 3f;
@@ -19,12 +21,21 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         var horizontal = Input.GetAxis("Horizontal");
+        if (Mathf.Abs(horizontal) > 0.1)
+        {
+            _animator.SetBool("IsRunning", true);
+        }
+        else
+        {
+            _animator.SetBool("IsRunning", false);
+        }
         _rigidbody.velocity = new Vector2(horizontal * Speed, _rigidbody.velocity.y);
 
 

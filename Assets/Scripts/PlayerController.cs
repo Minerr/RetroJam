@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
@@ -109,6 +110,12 @@ public class PlayerController : MonoBehaviour
 		{
 			SwapWeapon();
 		}
+
+	    if (Input.GetButtonDown("ResetLevel"))
+	    {
+	        SceneManager.LoadScene("Main");
+
+	    }
 		//if(Input.GetButtonDown("UseGrenade"))
 		//{
 		//	UseGrenade();

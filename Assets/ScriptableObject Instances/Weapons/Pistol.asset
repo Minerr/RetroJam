@@ -16,15 +16,15 @@ MonoBehaviour:
   Sprite: {fileID: 0}
   WeaponType: 1
   AutoFire: 0
-  DamagePerBullet: 30
-  FireRate: 8
-  ClipSize: 20
+  DamagePerBullet: 23.6
+  FireRate: 7
+  ClipSize: 15
   Accuracy: 0.857
   BulletSpread: 0
   BulletsPerShot: 1
   BulletLife: 2
   BulletSpeed: 148
-  ReloadSpeed: 2
+  ReloadSpeed: 1
   BulletSpawnPoint: {x: 1.8, y: 0}
   BulletSprite: {fileID: 21300000, guid: 2ac1663a7e46d5a438b2f02a42af86a0, type: 3}
   FireSound: {fileID: 0}
