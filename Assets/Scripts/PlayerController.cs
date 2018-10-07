@@ -11,8 +11,14 @@ public class PlayerController : MonoBehaviour
 
 	public readonly float MAX_HEALTH = 100f;
 
+	private int _primaryBulletCount = 0;
+	private int _secondaryBulletCount = 0;
+	private int _primaryMagCount = 0;
+	private int _secondaryMagCount = 0;
+	private WeaponType _currentWeaponType = WeaponType.Secondary;
+
 	// Unity public editor variables
-    public Sprite PlayerPortrait;
+	public Sprite PlayerPortrait;
 	public ArmoryController Armory;
 
 	// Properties
@@ -21,27 +27,79 @@ public class PlayerController : MonoBehaviour
 	public Grenade EquippedGrenade { get; private set; }
 	public HealingItem EquippedPrimaryHealing { get; private set; }
 	public HealingItem EquippedSecondaryHealing { get; private set; }
-	public int PrimaryWeaponBulletCount { get; private set; }
-	public int SecondaryWeaponBulletCount { get; private set; }
+	public int CurrentWeaponBulletCount { get; private set; }
+	public int CurrentWeaponMagCount { get; private set; }
+	public int CurrentWeaponClipSize
+	{
+		get
+		{
+			if(_currentWeaponType == WeaponType.Primary)
+			{
+				return EquippedPrimaryWeapon?.ClipSize ?? 0;
+			}
+
+			return EquippedSecondaryWeapon?.ClipSize ?? 0;
+		}
+	}
+
+	public WeaponType CurrentWeaponType
+	{
+		get { return _currentWeaponType; }
+		private set
+		{
+			if(value == WeaponType.Primary)
+			{
+				CurrentWeaponBulletCount = _primaryBulletCount;
+				CurrentWeaponMagCount = _primaryMagCount;
+			}
+			else
+			{
+				CurrentWeaponBulletCount = _secondaryBulletCount;
+				CurrentWeaponMagCount = _secondaryMagCount;
+			}
+
+			_currentWeaponType = value;
+		}
+	}
 
 	public int PlayerNumber
     {
         get { return _playerNumber; }
     }
 
-    // Use this for initialization
-    void Start()
-    {
+	// Use this for initialization
+	private void Awake()
+	{
         _currentHealth = MAX_HEALTH;
-    }
+	}
 
-    // Update is called once per frame
-    void Update()
+	void Start()
     {
+		EquipWeapon("Pistol");
+	}
 
-    }
+	// Update is called once per frame
+	void Update()
+    {
+		if(Input.GetAxis("UseHealing") < 0)
+		{
+			UseHealingItem(HealingType.Primary);
+		}
+		if(Input.GetAxis("UseHealing") > 0)
+		{
+			UseHealingItem(HealingType.Secondary);
+		}
+		if(Input.GetButtonDown("SwapWeapon"))
+		{
+			SwapWeapon();
+		}
+		//if(Input.GetButtonDown("UseGrenade"))
+		//{
+		//	UseGrenade();
+		//}
+	}
 
-    public float GetPlayerNormalizedHealth()
+	public float GetPlayerNormalizedHealth()
     {
         return _currentHealth / MAX_HEALTH;
     }
@@ -83,12 +141,14 @@ public class PlayerController : MonoBehaviour
 			if(weapon.WeaponType == WeaponType.Primary)
 			{
 				EquippedPrimaryWeapon = weapon;
-				PrimaryWeaponBulletCount = weapon.ClipSize;
+				_primaryBulletCount = weapon.ClipSize;
+				CurrentWeaponType = WeaponType.Primary;
 			}
 			else
 			{
 				EquippedSecondaryWeapon = weapon;
-				SecondaryWeaponBulletCount = weapon.ClipSize;
+				_secondaryBulletCount = weapon.ClipSize;
+				CurrentWeaponType = WeaponType.Secondary;
 			}
 		}
 	}
@@ -98,12 +158,14 @@ public class PlayerController : MonoBehaviour
 		if(type == WeaponType.Primary)
 		{
 			EquippedPrimaryWeapon = null;
-			PrimaryWeaponBulletCount = 0;
+			_primaryBulletCount = 0;
+			CurrentWeaponType = WeaponType.Secondary;
 		}
 		else
 		{
 			EquippedSecondaryWeapon = null;
-			SecondaryWeaponBulletCount = 0;
+			_secondaryBulletCount = 0;
+			CurrentWeaponType = WeaponType.Primary;
 		}
 	}
 
@@ -111,22 +173,22 @@ public class PlayerController : MonoBehaviour
 	{
 		if(type == WeaponType.Primary && EquippedPrimaryWeapon != null)
 		{
-			PrimaryWeaponBulletCount--;
+			_primaryBulletCount--;
 		}
 		else if(EquippedSecondaryWeapon != null)
 		{
-			SecondaryWeaponBulletCount--;
+			_secondaryBulletCount--;
 		}
 	}
 	public void ReloadWeapon(WeaponType type)
 	{
 		if(type == WeaponType.Primary && EquippedPrimaryWeapon != null)
 		{
-			PrimaryWeaponBulletCount = EquippedPrimaryWeapon.ClipSize;
+			_primaryBulletCount = EquippedPrimaryWeapon.ClipSize;
 		}
 		else if(EquippedSecondaryWeapon != null)
 		{
-			SecondaryWeaponBulletCount = EquippedSecondaryWeapon.ClipSize;
+			_secondaryBulletCount = EquippedSecondaryWeapon.ClipSize;
 		}
 	}
 
@@ -195,6 +257,14 @@ public class PlayerController : MonoBehaviour
 		else if(itemType == typeof(Grenade))
 		{
 			EquipGrenade(item.name);
+		}
+	}
+
+	private void SwapWeapon()
+	{
+		if(EquippedPrimaryWeapon != null)
+		{
+			CurrentWeaponType = CurrentWeaponType == WeaponType.Primary ? WeaponType.Secondary : WeaponType.Primary;
 		}
 	}
 }
