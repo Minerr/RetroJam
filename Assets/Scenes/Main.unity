@@ -30411,9 +30411,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerNumber: 0
   bullet: {fileID: 1882093248676160, guid: 9f51929c7e030304fbda69723e70b6a4, type: 2}
+  PlayerDeathIcon: {fileID: 21300000, guid: 6789d4f979b1dda4fb3906294bc7c964, type: 3}
   PlayerPortrait: {fileID: 21300000, guid: d0aa3b905e398074287ada747f85dc87, type: 3}
   Armory: {fileID: 623398777}
   PlayerArm: {fileID: 68441182}
+  IsDeath: 0
   MuzzleFlash: {fileID: 795756405}
 --- !u!114 &930887097
 MonoBehaviour:
@@ -49548,12 +49550,12 @@ Prefab:
     - target: {fileID: 224476130217397722, guid: e112998856179a2478f0f7d144a02737,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 127.5
+      value: 163.29999
       objectReference: {fileID: 0}
     - target: {fileID: 224476130217397722, guid: e112998856179a2478f0f7d144a02737,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -80.5
+      value: -111.20001
       objectReference: {fileID: 0}
     - target: {fileID: 224476130217397722, guid: e112998856179a2478f0f7d144a02737,
         type: 2}
@@ -52583,9 +52585,9 @@ Canvas:
   m_GameObject: {fileID: 2006622876}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_RenderMode: 1
+  m_Camera: {fileID: 661585556}
+  m_PlaneDistance: 0.87
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0

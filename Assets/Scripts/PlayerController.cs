@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 	private float cooldown = 0f;
 	public GameObject bullet;
 	private bool shotLastFrame;
+    private bool _isReloading = false;
 	
 
 	public readonly float MAX_HEALTH = 100f;
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
 	public Sprite PlayerPortrait;
 	public ArmoryController Armory;
 	public GameObject PlayerArm;
-	public bool IsDeath;
+	public bool IsDead;
     public Light MuzzleFlash;
 
 	// Properties
@@ -90,7 +91,7 @@ public class PlayerController : MonoBehaviour
 	// Use this for initialization
 	private void Awake()
 	{
-		IsDeath = false;
+		IsDead = false;
 		_currentHealth = MAX_HEALTH;
 	}
 
@@ -102,7 +103,12 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if(IsDeath)
+	    if (Input.GetButtonDown("ResetLevel"))
+	    {
+	        SceneManager.LoadScene("Main");
+	    }
+
+        if (IsDead)
 		{
 			return;
 		}
@@ -125,11 +131,6 @@ public class PlayerController : MonoBehaviour
             EquipWeapon("PumpShotgun");
 	    }
 
-	    if (Input.GetButtonDown("ResetLevel"))
-	    {
-	        SceneManager.LoadScene("Main");
-
-	    }
 		//if(Input.GetButtonDown("UseGrenade"))
 		//{
 		//	UseGrenade();
@@ -180,7 +181,7 @@ public class PlayerController : MonoBehaviour
 
 	public void Death()
 	{
-		IsDeath = true;
+		IsDead = true;
 		Debug.Log("I Am Dead");
 	}
 
@@ -315,10 +316,12 @@ public class PlayerController : MonoBehaviour
 	public IEnumerator ReloadWeapon()
 	{
 		Debug.Log("Reloading...");
+	    _isReloading = true;
 		WeaponType weaponType = CurrentWeaponType;
 		LockWeapon(weaponType);
 		yield return new WaitForSeconds(GetCurrentWeapon().ReloadSpeed);
 
+	    _isReloading = false;
 		Debug.Log("Done Reloading");
 		UnlockWeapon(weaponType);
 
@@ -384,6 +387,11 @@ public class PlayerController : MonoBehaviour
 
 	public void EquipItem(Obtainable item)
 	{
+	    if (_isReloading)
+	    {
+	        return;
+	    }
+
 		Type itemType = item.GetType();
 
 		if(itemType == typeof(Weapon))
@@ -402,7 +410,7 @@ public class PlayerController : MonoBehaviour
 
 	private void SwapWeapon()
 	{
-		if(EquippedPrimaryWeapon != null)
+		if(EquippedPrimaryWeapon != null && _isReloading == false)
 		{
 			CurrentWeaponType = CurrentWeaponType == WeaponType.Primary ? WeaponType.Secondary : WeaponType.Primary;
 		}
@@ -447,4 +455,26 @@ public class PlayerController : MonoBehaviour
 			_canShootSecondary = true;
 		}
 	}
+
+    private void DrawReloadBar()
+    {
+        if (_isReloading)
+        {
+            Texture tex_pressToPickUp = Resources.Load<Texture>("Sprites/HUD/Text_PressToPickUp");
+
+            float imageScale = 3;
+            float imageWidth = tex_pressToPickUp.width * imageScale;
+            float imageHeight = tex_pressToPickUp.height * imageScale;
+            float imageCenterX = imageWidth / 2;
+            float imageCenterY = 200 + (imageHeight / 2);
+
+            Vector2 playerInScreenPos = Camera.main.WorldToScreenPoint(this.gameObject.transform.position);
+            GUI.DrawTexture(new Rect(playerInScreenPos.x - imageCenterX, playerInScreenPos.y - imageCenterY, imageWidth, imageHeight), tex_pressToPickUp, ScaleMode.StretchToFill, true, 10.0F);
+        }
+    }
+
+    void OnGUI()
+    {
+        DrawReloadBar();
+    }
 }

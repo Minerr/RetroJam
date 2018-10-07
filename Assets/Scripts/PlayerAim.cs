@@ -6,14 +6,21 @@ using UnityEngine;
 public class PlayerAim : MonoBehaviour
 {
     private float ControllerThreshHold = 0.3f;
+
+    private PlayerController _playerController;
 	// Use this for initialization
-	void Start () {
-		
+	void Start ()
+	{
+	    _playerController = GetComponentInParent<PlayerController>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+	    if (_playerController.IsDead)
+	    {
+            return;
+	    }
 
 	    var Hori = Input.GetAxisRaw("AimHorizontal");
 	    var Vert = Input.GetAxisRaw("AimVertical");

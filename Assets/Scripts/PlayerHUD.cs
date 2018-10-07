@@ -65,7 +65,7 @@ public class PlayerHUD : MonoBehaviour {
 		UpdateHealthbar();
 		UpdateItemSlots();
 
-		if(Player.IsDeath)
+		if(Player.IsDead)
 		{
 			Portrait.sprite = Player.PlayerDeathIcon;
 		}
