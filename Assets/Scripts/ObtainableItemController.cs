@@ -26,20 +26,4 @@ public class ObtainableItemController : MonoBehaviour {
 
 		}
 	}
-
-	private void OnCollisionEnter2D(Collision2D collision)
-	{
-		if(collision == _playerObject.GetComponent<Collision2D>())
-		{
-			_displayOverlay = true;
-		}
-	}
-
-	private void OnCollisionExit2D(Collision2D collision)
-	{
-		if(collision == _playerObject.GetComponent<Collision2D>())
-		{
-			_displayOverlay = false;
-		}
-	}
 }

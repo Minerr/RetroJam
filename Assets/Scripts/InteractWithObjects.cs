@@ -20,7 +20,7 @@ public class InteractWithObjects : MonoBehaviour
 	{
 		if(_colliderItem != null)
 		{
-			if(Input.GetButtonDown("XBOX_X"))
+			if(Input.GetButtonDown("Interact"))
 			{
 				Obtainable item = _colliderItem.GetComponent<Item>().ItemType;
 				_controller.EquipItem(item);
@@ -68,7 +68,7 @@ public class InteractWithObjects : MonoBehaviour
 			float imageCenterX = imageWidth / 2;
 			float imageCenterY = 100 + (imageHeight / 2);
 
-			Vector2 playerInScreenPos = Camera.main.WorldToViewportPoint(this.gameObject.transform.position);
+			Vector2 playerInScreenPos = Camera.main.WorldToScreenPoint(this.gameObject.transform.position);
 
 			GUI.DrawTexture(new Rect(playerInScreenPos.x - imageCenterX, playerInScreenPos.y - imageCenterY, imageWidth, imageHeight), tex_pressToPickUp, ScaleMode.StretchToFill, true, 10.0F);
 		}
