@@ -21,31 +21,31 @@ public class PlayerShoot : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetAxisRaw("Fire1") < 0.5)
-        {
-            shotLastFrame = false;
-        }
+        //if (Input.GetAxisRaw("Fire1") < 0.5)
+        //{
+        //    shotLastFrame = false;
+        //}
 
-        if (weapon.AutoFire)
-        {
-            if (Input.GetAxisRaw("Fire1") > 0.5)
-            {
-                Fire();
-            }
-        }
-        else
-        {
-            if (Input.GetAxisRaw("Fire1") > 0.5 && shotLastFrame == false)
-            {
-                shotLastFrame = true;
-                Fire();
-            }
-        }
+        //if (weapon.AutoFire)
+        //{
+        //    if (Input.GetAxisRaw("Fire1") > 0.5)
+        //    {
+        //        Fire();
+        //    }
+        //}
+        //else
+        //{
+        //    if (Input.GetAxisRaw("Fire1") > 0.5 && shotLastFrame == false)
+        //    {
+        //        shotLastFrame = true;
+        //        Fire();
+        //    }
+        //}
 
-        if (Input.GetButtonDown("Reload"))
-        {
-            StartCoroutine(Reload());
-        }
+        //if (Input.GetButtonDown("Reload"))
+        //{
+        //    StartCoroutine(Reload());
+        //}
     }
 
     void Fire()
@@ -120,15 +120,15 @@ public class PlayerShoot : MonoBehaviour
         //transform.rotation = transform.rotation * recoil;
     }
 
-    IEnumerator Reload()
-    {
-        Debug.Log("Reloading...");
-        canShoot = false;
-        yield return new WaitForSeconds(weapon.ReloadSpeed);
+    //IEnumerator Reload()
+    //{
+    //    Debug.Log("Reloading...");
+    //    canShoot = false;
+    //    yield return new WaitForSeconds(weapon.ReloadSpeed);
 
-        Debug.Log("Done Reloading");
-        bulletCount = weapon.ClipSize;
-        canShoot = true;
-        GetComponentInParent<PlayerController>().ReloadWeapon(weapon.WeaponType);
-    }
+    //    Debug.Log("Done Reloading");
+    //    bulletCount = weapon.ClipSize;
+    //    canShoot = true;
+    //    GetComponentInParent<PlayerController>().ReloadWeapon(weapon.WeaponType);
+    //}
 }
