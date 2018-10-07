@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D _rigidbody;
 
+    private PlayerController _playerController;
+
     private Animator _animator;
 
     [SerializeField] private float Speed = 3f;
@@ -22,11 +24,16 @@ public class PlayerMovement : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _playerController = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_playerController.IsDead)
+        {
+            return;
+        }
         var horizontal = Input.GetAxis("Horizontal");
         if (Mathf.Abs(horizontal) > 0.1)
         {
