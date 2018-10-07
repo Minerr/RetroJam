@@ -25,9 +25,11 @@ public class PlayerController : MonoBehaviour
 	public readonly float MAX_HEALTH = 100f;
 
 	// Unity public editor variables
+	public Sprite PlayerDeathIcon;
 	public Sprite PlayerPortrait;
 	public ArmoryController Armory;
 	public GameObject PlayerArm;
+	public bool IsDeath;
 
 	// Properties
 	public Weapon EquippedPrimaryWeapon { get; private set; }
@@ -87,6 +89,7 @@ public class PlayerController : MonoBehaviour
 	// Use this for initialization
 	private void Awake()
 	{
+		IsDeath = false;
 		_currentHealth = MAX_HEALTH;
 	}
 
@@ -98,6 +101,11 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if(IsDeath)
+		{
+			return;
+		}
+
 		if(Input.GetAxis("UseHealing") < 0)
 		{
 			UseHealingItem(HealingType.Primary);
@@ -166,6 +174,7 @@ public class PlayerController : MonoBehaviour
 
 	public void Death()
 	{
+		IsDeath = true;
 		Debug.Log("I Am Dead");
 	}
 
