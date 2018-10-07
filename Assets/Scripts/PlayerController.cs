@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
 	public GameObject PlayerArm;
 	public bool IsDead;
     public Light MuzzleFlash;
+	public GameObject HUD_OnDeath;
+	public GameObject HUD_Reloading;
+	public GameObject HUD_ReloadPrompt;
 
 	// Properties
 	public Weapon EquippedPrimaryWeapon { get; private set; }
@@ -161,6 +164,24 @@ public class PlayerController : MonoBehaviour
 		{
 			StartCoroutine(ReloadWeapon());
 		}
+
+		if(_isReloading)
+		{
+			HUD_Reloading.SetActive(true);
+		}
+		else
+		{
+			HUD_Reloading.SetActive(false);
+		}
+
+		if(CurrentWeaponBulletCount == 0 && !_isReloading)
+		{
+			HUD_ReloadPrompt.SetActive(true);
+		}
+		else
+		{
+			HUD_ReloadPrompt.SetActive(false);
+		}
 	}
 
 	public float GetPlayerNormalizedHealth()
@@ -182,6 +203,7 @@ public class PlayerController : MonoBehaviour
 	public void Death()
 	{
 		IsDead = true;
+		HUD_OnDeath.SetActive(true);
 		Debug.Log("I Am Dead");
 	}
 
@@ -458,20 +480,32 @@ public class PlayerController : MonoBehaviour
 
     private void DrawReloadBar()
     {
-        if (_isReloading)
-        {
-            Texture tex_pressToPickUp = Resources.Load<Texture>("Sprites/HUD/Text_PressToPickUp");
+		//bool isDisplayingText = false;
+		//Texture text = null;
 
-            float imageScale = 3;
-            float imageWidth = tex_pressToPickUp.width * imageScale;
-            float imageHeight = tex_pressToPickUp.height * imageScale;
-            float imageCenterX = imageWidth / 2;
-            float imageCenterY = 200 + (imageHeight / 2);
+		//if (_isReloading)
+  //      {
+  //          text = Resources.Load<Texture>("Sprites/HUD/Text_Reloading");
+		//	isDisplayingText = true;
+		//}
+		//else if(CurrentWeaponBulletCount == 0)
+		//{
+		//	text = Resources.Load<Texture>("Sprites/HUD/Text_Reload");
+		//	isDisplayingText = true;
+		//}
 
-            Vector2 playerInScreenPos = Camera.main.WorldToScreenPoint(this.gameObject.transform.position);
-            GUI.DrawTexture(new Rect(playerInScreenPos.x - imageCenterX, playerInScreenPos.y - imageCenterY, imageWidth, imageHeight), tex_pressToPickUp, ScaleMode.StretchToFill, true, 10.0F);
-        }
-    }
+		//if(isDisplayingText)
+		//{
+		//	float imageScale = 3;
+		//	float imageWidth = text.width * imageScale;
+		//	float imageHeight = text.height * imageScale;
+		//	float imageCenterX = imageWidth / 2;
+		//	float imageCenterY = 250 + (imageHeight / 2);
+
+		//	Vector2 playerInScreenPos = Camera.main.WorldToScreenPoint(this.gameObject.transform.position);
+		//	GUI.DrawTexture(new Rect(playerInScreenPos.x - imageCenterX, playerInScreenPos.y - imageCenterY, imageWidth, imageHeight), text, ScaleMode.StretchToFill, true, 10.0F);
+		//}
+	}
 
     void OnGUI()
     {

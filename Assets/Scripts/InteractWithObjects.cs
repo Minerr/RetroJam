@@ -8,6 +8,8 @@ public class InteractWithObjects : MonoBehaviour
 	private Collider2D _colliderItem;
 	private PlayerController _controller;
 
+	public GameObject HUD_PromptPickUp;
+
 	// Use this for initialization
 	void Start()
 	{
@@ -52,7 +54,11 @@ public class InteractWithObjects : MonoBehaviour
 	{
 		if(_showPickUpLine)
 		{
-			DrawPickUpLine();
+			HUD_PromptPickUp.SetActive(true);
+		}
+		else
+		{
+			HUD_PromptPickUp.SetActive(false);
 		}
 	}
 

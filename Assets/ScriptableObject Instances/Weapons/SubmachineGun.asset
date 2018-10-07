@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: SubmachineGun
   m_EditorClassIdentifier: 
   ItemName: SubmachineGun
-  Icon: {fileID: 21300000, guid: 0ae2efd15c8f6e4488b7acd3f70bf9f9, type: 3}
-  Sprite: {fileID: 21300000, guid: 0ae2efd15c8f6e4488b7acd3f70bf9f9, type: 3}
+  Icon: {fileID: 21300000, guid: 88af418a77600ce428aa85279632dd01, type: 3}
+  Sprite: {fileID: 21300000, guid: 6007f5b61486a8042baddb74273d6548, type: 3}
   WeaponType: 0
   AutoFire: 1
   DamagePerBullet: 14.8

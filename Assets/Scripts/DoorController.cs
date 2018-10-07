@@ -10,7 +10,12 @@ public class DoorController : MonoBehaviour {
 	[SerializeField] private Transform _player;
 	[SerializeField] private float _distToOpen;
 	[SerializeField] private BoxCollider2D _collider;
-	private bool _doorIsOpen;
+	private bool _doorIsOpen = false;
+
+	public GameObject HUD_PromptOpenDoor;
+	public GameObject HUD_PromptCloseDoor;
+
+	private bool _isPromptActive = false;
 
 	// Use this for initialization
 	void Start () {
@@ -19,10 +24,33 @@ public class DoorController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButtonDown("Interact")) {
-			if ((_player.position - transform.position).magnitude <= _distToOpen) {
+		bool canOpenDoor = ((_player.position - transform.position).magnitude <= _distToOpen);
+
+		if(canOpenDoor)
+		{
+			_isPromptActive = true;
+
+			if(_doorIsOpen)
+			{
+				HUD_PromptCloseDoor.SetActive(true);
+				HUD_PromptOpenDoor.SetActive(false);
+			}
+			else
+			{
+				HUD_PromptOpenDoor.SetActive(true);
+				HUD_PromptCloseDoor.SetActive(false);
+			}
+
+
+			if(Input.GetButtonDown("Interact"))
+			{
 				ToggleDoor();
 			}
+		}
+		else if(_isPromptActive)
+		{
+			HUD_PromptCloseDoor.SetActive(false);
+			HUD_PromptOpenDoor.SetActive(false);
 		}
 	}
 

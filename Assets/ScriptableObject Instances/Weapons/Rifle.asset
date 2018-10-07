@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: Rifle
   m_EditorClassIdentifier: 
   ItemName: Rifle
-  Icon: {fileID: 21300000, guid: 0ae2efd15c8f6e4488b7acd3f70bf9f9, type: 3}
-  Sprite: {fileID: 21300000, guid: 0ae2efd15c8f6e4488b7acd3f70bf9f9, type: 3}
+  Icon: {fileID: 21300000, guid: 23ca13031d3231b46b1485b3bbf00e4f, type: 3}
+  Sprite: {fileID: 21300000, guid: f037a133745b53a42b3f3944f13396d0, type: 3}
   WeaponType: 0
   AutoFire: 1
   DamagePerBullet: 30
