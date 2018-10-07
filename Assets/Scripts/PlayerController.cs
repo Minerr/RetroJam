@@ -6,8 +6,8 @@ using UnityEngine.Analytics;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private int _playerNumber;
-    private float _currentHealth;
+	[SerializeField] private int _playerNumber;
+	private float _currentHealth;
 
 	public readonly float MAX_HEALTH = 100f;
 
@@ -22,12 +22,23 @@ public class PlayerController : MonoBehaviour
 	public ArmoryController Armory;
 
 	// Properties
-    public Weapon EquippedPrimaryWeapon { get; private set; }
-    public Weapon EquippedSecondaryWeapon { get; private set; }
+	public Weapon EquippedPrimaryWeapon { get; private set; }
+	public Weapon EquippedSecondaryWeapon { get; private set; }
 	public Grenade EquippedGrenade { get; private set; }
 	public HealingItem EquippedPrimaryHealing { get; private set; }
 	public HealingItem EquippedSecondaryHealing { get; private set; }
-	public int CurrentWeaponBulletCount { get; private set; }
+	public int CurrentWeaponBulletCount
+	{
+		get
+		{
+			if(CurrentWeaponType == WeaponType.Primary)
+			{
+				return _primaryBulletCount;
+			}
+
+			return _secondaryBulletCount;
+		}
+	}
 	public int CurrentWeaponMagCount { get; private set; }
 	public int CurrentWeaponClipSize
 	{
@@ -49,12 +60,10 @@ public class PlayerController : MonoBehaviour
 		{
 			if(value == WeaponType.Primary)
 			{
-				CurrentWeaponBulletCount = _primaryBulletCount;
 				CurrentWeaponMagCount = _primaryMagCount;
 			}
 			else
 			{
-				CurrentWeaponBulletCount = _secondaryBulletCount;
 				CurrentWeaponMagCount = _secondaryMagCount;
 			}
 
@@ -63,24 +72,24 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public int PlayerNumber
-    {
-        get { return _playerNumber; }
-    }
+	{
+		get { return _playerNumber; }
+	}
 
 	// Use this for initialization
 	private void Awake()
 	{
-        _currentHealth = MAX_HEALTH;
+		_currentHealth = MAX_HEALTH;
 	}
 
 	void Start()
-    {
+	{
 		EquipWeapon("Pistol");
 	}
 
 	// Update is called once per frame
 	void Update()
-    {
+	{
 		if(Input.GetAxis("UseHealing") < 0)
 		{
 			UseHealingItem(HealingType.Primary);
@@ -100,37 +109,37 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public float GetPlayerNormalizedHealth()
-    {
-        return _currentHealth / MAX_HEALTH;
-    }
+	{
+		return _currentHealth / MAX_HEALTH;
+	}
 
-    public void TakeDamage(float amount)
-    {
-        _currentHealth -= amount;
+	public void TakeDamage(float amount)
+	{
+		_currentHealth -= amount;
 
-        if (_currentHealth <= 0)
-        {
-            _currentHealth = 0;
-            Death();
-        }
-    }
+		if(_currentHealth <= 0)
+		{
+			_currentHealth = 0;
+			Death();
+		}
+	}
 
-    public void Death()
-    {
-        Debug.Log("I Am Dead");
-    }
+	public void Death()
+	{
+		Debug.Log("I Am Dead");
+	}
 
-    public void GainHealth(float percentage)
-    {
+	public void GainHealth(float percentage)
+	{
 		percentage = Mathf.Clamp(percentage, 0, MAX_HEALTH);
 		float lifegain = MAX_HEALTH * (percentage / 100);
 		_currentHealth = Mathf.Clamp(_currentHealth + lifegain, 0, MAX_HEALTH);
 	}
 
-    public string GetName()
-    {
-        return "Player0" + _playerNumber;
-    }
+	public string GetName()
+	{
+		return "Player0" + _playerNumber;
+	}
 
 	public void EquipWeapon(string name)
 	{
@@ -182,7 +191,14 @@ public class PlayerController : MonoBehaviour
 	}
 	public void ReloadWeapon(WeaponType type)
 	{
-		CurrentWeaponBulletCount = CurrentWeaponClipSize;
+		if(type == WeaponType.Primary && EquippedPrimaryWeapon != null)
+		{
+			_primaryBulletCount = EquippedPrimaryWeapon.ClipSize;
+		}
+		else if(EquippedSecondaryWeapon != null)
+		{
+			_secondaryBulletCount = EquippedSecondaryWeapon.ClipSize;
+		}
 	}
 
 	public void EquipGrenade(string name)
@@ -221,7 +237,7 @@ public class PlayerController : MonoBehaviour
 
 	public void UseHealingItem(HealingType type)
 	{
-		if(type == HealingType.Primary && 
+		if(type == HealingType.Primary &&
 			EquippedPrimaryHealing != null)
 		{
 			GainHealth(EquippedPrimaryHealing.HealingPercentage);
