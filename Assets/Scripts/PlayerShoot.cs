@@ -16,7 +16,7 @@ public class PlayerShoot : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        bulletCount = weapon.ClipSize;
+        //bulletCount = weapon.ClipSize;
     }
 
     void Update()
@@ -48,77 +48,77 @@ public class PlayerShoot : MonoBehaviour
         //}
     }
 
-    void Fire()
-    {
-        if (canShoot == true)
-        {
-            if (Time.time >= cooldown)
-            {
-                cooldown = Time.time + 1f / weapon.FireRate;
-                if (weapon.BulletsPerShot > 1)
-                {
-                    MultiShot();
-                    bulletCount -= 1;
-                    if (bulletCount <= 0)
-                    {
-                        canShoot = false;
-                    }
-                }
-                else
-                {
-                    Shoot(transform.rotation);
-                    bulletCount -= 1;
-                    if (bulletCount <= 0)
-                    {
-                        canShoot = false;
-                    }
-                }
-            }
-        }
-        else
-        {
-            Debug.Log("i need to reload");
-        }
-    }
+    //void Fire()
+    //{
+    //    if (canShoot == true)
+    //    {
+    //        if (Time.time >= cooldown)
+    //        {
+    //            cooldown = Time.time + 1f / weapon.FireRate;
+    //            if (weapon.BulletsPerShot > 1)
+    //            {
+    //                MultiShot();
+    //                bulletCount -= 1;
+    //                if (bulletCount <= 0)
+    //                {
+    //                    canShoot = false;
+    //                }
+    //            }
+    //            else
+    //            {
+    //                Shoot(transform.rotation);
+    //                bulletCount -= 1;
+    //                if (bulletCount <= 0)
+    //                {
+    //                    canShoot = false;
+    //                }
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("i need to reload");
+    //    }
+    //}
 
-    void MultiShot()
-    {
+    //void MultiShot()
+    //{
 
-        for (int i = 0; i < weapon.BulletsPerShot; i++)
-        {
-            float weaponAccuracy = Random.Range(-1 + weapon.Accuracy, 1 - weapon.Accuracy);
-            float vinkel =  (weapon.BulletSpread / 2) - (weapon.BulletSpread / (weapon.BulletsPerShot - 1)) * i;
+    //    for (int i = 0; i < weapon.BulletsPerShot; i++)
+    //    {
+    //        float weaponAccuracy = Random.Range(-1 + weapon.Accuracy, 1 - weapon.Accuracy);
+    //        float vinkel =  (weapon.BulletSpread / 2) - (weapon.BulletSpread / (weapon.BulletsPerShot - 1)) * i;
 
-            Quaternion angle = Quaternion.Euler(0, 0, vinkel);
-            var angleOffset = transform.rotation * angle;
+    //        Quaternion angle = Quaternion.Euler(0, 0, vinkel);
+    //        var angleOffset = transform.rotation * angle;
 
-            Shoot(angleOffset);
+    //        Shoot(angleOffset);
 
 
-        }
-    }
+    //    }
+    //}
 
-    void Shoot(Quaternion angle)
-    {
-        float weaponAccuracy = Random.Range(-1 + weapon.Accuracy, 1 - weapon.Accuracy);
-        Quaternion angleOffset = Quaternion.Euler(0, 0, weaponAccuracy*20);
+    //void Shoot(Quaternion angle)
+    //{
+    //    float weaponAccuracy = Random.Range(-1 + weapon.Accuracy, 1 - weapon.Accuracy);
+    //    Quaternion angleOffset = Quaternion.Euler(0, 0, weaponAccuracy*20);
 
-        var test = new Vector3(weapon.BulletSpawnPoint.x, weapon.BulletSpawnPoint.y, 0);
-        var spawnPoint = transform.position + transform.TransformDirection(test);
-        var bulletObject = Instantiate(bullet,spawnPoint,angle * angleOffset);
+    //    var test = new Vector3(weapon.BulletSpawnPoint.x, weapon.BulletSpawnPoint.y, 0);
+    //    var spawnPoint = transform.position + transform.TransformDirection(test);
+    //    var bulletObject = Instantiate(bullet,spawnPoint,angle * angleOffset);
 
-        var bulletScript = bulletObject.GetComponent<BulletBehavior>();
-        bulletScript.Damage = weapon.DamagePerBullet;
-        bulletScript.Speed = weapon.BulletSpeed;
-        bulletScript.lifeTime = weapon.BulletLife;
-        bulletScript.SpriteRenderer.sprite = weapon.BulletSprite;
+    //    var bulletScript = bulletObject.GetComponent<BulletBehavior>();
+    //    bulletScript.Damage = weapon.DamagePerBullet;
+    //    bulletScript.Speed = weapon.BulletSpeed;
+    //    bulletScript.lifeTime = weapon.BulletLife;
+    //    bulletScript.SpriteRenderer.sprite = weapon.BulletSprite;
 
-        GetComponentInParent<PlayerController>().FireWeapon(weapon.WeaponType);
+    //    GetComponentInParent<PlayerController>().FireWeapon(weapon.WeaponType);
 
-        //Debug.Log("Shot");
-        //Quaternion recoil = Quaternion.Euler(0, 0, weapon.Recoil * 20);
-        //transform.rotation = transform.rotation * recoil;
-    }
+    //    //Debug.Log("Shot");
+    //    //Quaternion recoil = Quaternion.Euler(0, 0, weapon.Recoil * 20);
+    //    //transform.rotation = transform.rotation * recoil;
+    //}
 
     //IEnumerator Reload()
     //{
