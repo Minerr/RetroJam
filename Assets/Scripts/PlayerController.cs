@@ -111,7 +111,25 @@ public class PlayerController : MonoBehaviour
 	        SceneManager.LoadScene("Main");
 	    }
 
-        if (IsDead)
+		if(_isReloading && !IsDead)
+		{
+			HUD_Reloading.SetActive(true);
+		}
+		else
+		{
+			HUD_Reloading.SetActive(false);
+		}
+
+		if(CurrentWeaponBulletCount == 0 && !_isReloading && !IsDead)
+		{
+			HUD_ReloadPrompt.SetActive(true);
+		}
+		else
+		{
+			HUD_ReloadPrompt.SetActive(false);
+		}
+
+		if (IsDead)
 		{
 			return;
 		}
@@ -163,24 +181,6 @@ public class PlayerController : MonoBehaviour
 		if(Input.GetButtonDown("Reload"))
 		{
 			StartCoroutine(ReloadWeapon());
-		}
-
-		if(_isReloading)
-		{
-			HUD_Reloading.SetActive(true);
-		}
-		else
-		{
-			HUD_Reloading.SetActive(false);
-		}
-
-		if(CurrentWeaponBulletCount == 0 && !_isReloading)
-		{
-			HUD_ReloadPrompt.SetActive(true);
-		}
-		else
-		{
-			HUD_ReloadPrompt.SetActive(false);
 		}
 	}
 
