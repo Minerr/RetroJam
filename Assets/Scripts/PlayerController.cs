@@ -182,14 +182,7 @@ public class PlayerController : MonoBehaviour
 	}
 	public void ReloadWeapon(WeaponType type)
 	{
-		if(type == WeaponType.Primary && EquippedPrimaryWeapon != null)
-		{
-			_primaryBulletCount = EquippedPrimaryWeapon.ClipSize;
-		}
-		else if(EquippedSecondaryWeapon != null)
-		{
-			_secondaryBulletCount = EquippedSecondaryWeapon.ClipSize;
-		}
+	    CurrentWeaponBulletCount = CurrentWeaponClipSize;
 	}
 
 	public void EquipGrenade(string name)
@@ -245,6 +238,8 @@ public class PlayerController : MonoBehaviour
 	public void EquipItem(Obtainable item)
 	{
 		Type itemType = item.GetType();
+
+        Debug.Log(itemType);
 
 		if(itemType == typeof(Weapon))
 		{
