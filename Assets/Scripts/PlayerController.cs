@@ -3,19 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
+using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
 	[SerializeField] private int _playerNumber;
 	private float _currentHealth;
-
-	public readonly float MAX_HEALTH = 100f;
-
 	private int _primaryBulletCount = 0;
 	private int _secondaryBulletCount = 0;
 	private int _primaryMagCount = 0;
 	private int _secondaryMagCount = 0;
 	private WeaponType _currentWeaponType = WeaponType.Secondary;
+	private bool _canShoot = true;
+	private float cooldown = 0f;
+	public GameObject bullet;
+	private bool shotLastFrame;
+
+	public readonly float MAX_HEALTH = 100f;
 
 	// Unity public editor variables
 	public Sprite PlayerPortrait;
@@ -108,6 +112,32 @@ public class PlayerController : MonoBehaviour
 		//{
 		//	UseGrenade();
 		//}
+
+		if(Input.GetAxisRaw("Fire1") < 0.5)
+		{
+			shotLastFrame = false;
+		}
+
+		if(GetCurrentWeapon().AutoFire)
+		{
+			if(Input.GetAxisRaw("Fire1") > 0.5)
+			{
+				FireWeapon();
+			}
+		}
+		else
+		{
+			if(Input.GetAxisRaw("Fire1") > 0.5 && shotLastFrame == false)
+			{
+				shotLastFrame = true;
+				FireWeapon();
+			}
+		}
+
+		if(Input.GetButtonDown("Reload"))
+		{
+			StartCoroutine(ReloadWeapon());
+		}
 	}
 
 	public float GetPlayerNormalizedHealth()
@@ -180,9 +210,38 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	public void FireWeapon(WeaponType type)
+	public void FireWeapon()
 	{
-		if(type == WeaponType.Primary && EquippedPrimaryWeapon != null)
+		Weapon weapon = GetCurrentWeapon();
+
+		if(_canShoot == true)
+		{
+			if(Time.time >= cooldown)
+			{
+				cooldown = Time.time + 1f / weapon.FireRate;
+				if(weapon.BulletsPerShot > 1)
+				{
+					MultiShot();
+				}
+				else
+				{
+					ShootBullet(transform.rotation);
+				}
+
+				RemoveBulletFromChamber();
+				if(CurrentWeaponBulletCount <= 0)
+				{
+					_canShoot = false;
+				}
+			}
+		}
+
+
+	}
+
+	private void RemoveBulletFromChamber()
+	{
+		if(CurrentWeaponType == WeaponType.Primary && EquippedPrimaryWeapon != null)
 		{
 			_primaryBulletCount--;
 		}
@@ -191,9 +250,51 @@ public class PlayerController : MonoBehaviour
 			_secondaryBulletCount--;
 		}
 	}
-	public void ReloadWeapon(WeaponType type)
+
+	private  void MultiShot()
 	{
-		if(type == WeaponType.Primary && EquippedPrimaryWeapon != null)
+		Weapon weapon = GetCurrentWeapon();
+
+		for(int i = 0; i < weapon.BulletsPerShot; i++)
+		{
+			float weaponAccuracy = Random.Range(-1 + weapon.Accuracy, 1 - weapon.Accuracy);
+			float vinkel = (weapon.BulletSpread / 2) - (weapon.BulletSpread / (weapon.BulletsPerShot - 1)) * i;
+
+			Quaternion angle = Quaternion.Euler(0, 0, vinkel);
+			var angleOffset = transform.rotation * angle;
+
+			ShootBullet(angleOffset);
+		}
+	}
+
+	private void ShootBullet(Quaternion angle)
+	{
+		Weapon weapon = GetCurrentWeapon();
+
+		float weaponAccuracy = Random.Range(-1 + weapon.Accuracy, 1 - weapon.Accuracy);
+		Quaternion angleOffset = Quaternion.Euler(0, 0, weaponAccuracy * 20);
+
+		var test = new Vector3(weapon.BulletSpawnPoint.x, weapon.BulletSpawnPoint.y, 0);
+		var spawnPoint = transform.position + transform.TransformDirection(test);
+		var bulletObject = Instantiate(bullet, spawnPoint, angle * angleOffset);
+
+		var bulletScript = bulletObject.GetComponent<BulletBehavior>();
+		bulletScript.Damage = weapon.DamagePerBullet;
+		bulletScript.Speed = weapon.BulletSpeed;
+		bulletScript.lifeTime = weapon.BulletLife;
+		bulletScript.SpriteRenderer.sprite = weapon.BulletSprite;
+	}
+
+	public IEnumerator ReloadWeapon()
+	{
+		Debug.Log("Reloading...");
+		_canShoot = false;
+		yield return new WaitForSeconds(GetCurrentWeapon().ReloadSpeed);
+
+		Debug.Log("Done Reloading");
+		_canShoot = true;
+
+		if(CurrentWeaponType == WeaponType.Primary && EquippedPrimaryWeapon != null)
 		{
 			_primaryBulletCount = EquippedPrimaryWeapon.ClipSize;
 		}
@@ -277,5 +378,11 @@ public class PlayerController : MonoBehaviour
 		{
 			CurrentWeaponType = CurrentWeaponType == WeaponType.Primary ? WeaponType.Secondary : WeaponType.Primary;
 		}
+	}
+
+	private Weapon GetCurrentWeapon()
+	{
+		return (CurrentWeaponType == WeaponType.Primary) 
+			? EquippedPrimaryWeapon : EquippedSecondaryWeapon;
 	}
 }
