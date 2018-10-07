@@ -66,7 +66,7 @@ public class InteractWithObjects : MonoBehaviour
 			float imageWidth = tex_pressToPickUp.width * imageScale;
 			float imageHeight = tex_pressToPickUp.height * imageScale;
 			float imageCenterX = imageWidth / 2;
-			float imageCenterY = 100 + (imageHeight / 2);
+			float imageCenterY = 200 + (imageHeight / 2);
 
 			Vector2 playerInScreenPos = Camera.main.WorldToScreenPoint(this.gameObject.transform.position);
 

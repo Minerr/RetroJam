@@ -16,8 +16,8 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: 0ae2efd15c8f6e4488b7acd3f70bf9f9, type: 3}
   WeaponType: 0
   AutoFire: 0
-  DamagePerBullet: 25
-  FireRate: 22.7
+  DamagePerBullet: 21
+  FireRate: 1
   ClipSize: 8
   Accuracy: 0.546
   BulletSpread: 20
