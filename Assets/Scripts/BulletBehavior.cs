@@ -27,6 +27,7 @@ public class BulletBehavior : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        Debug.Log(col.gameObject.name);
         if (col.gameObject.CompareTag("Zombie"))
         {
             col.gameObject.GetComponent<ZombieController>().TakeDamage(Damage);
