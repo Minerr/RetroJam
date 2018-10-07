@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
 	private int _primaryMagCount = 0;
 	private int _secondaryMagCount = 0;
 	private WeaponType _currentWeaponType = WeaponType.Secondary;
-	private bool _canShoot = true;
+	private bool _canShootPrimary = true;
+	private bool _canShootSecondary = true;
 	private float cooldown = 0f;
 	public GameObject bullet;
 	private bool shotLastFrame;
@@ -216,7 +217,7 @@ public class PlayerController : MonoBehaviour
 	{
 		Weapon weapon = GetCurrentWeapon();
 
-		if(_canShoot == true)
+		if(CanShootCurrentWeapon())
 		{
 			if(Time.time >= cooldown)
 			{
@@ -233,12 +234,10 @@ public class PlayerController : MonoBehaviour
 				RemoveBulletFromChamber();
 				if(CurrentWeaponBulletCount <= 0)
 				{
-					_canShoot = false;
+					LockWeapon(CurrentWeaponType);
 				}
 			}
 		}
-
-
 	}
 
 	private void RemoveBulletFromChamber()
@@ -289,13 +288,14 @@ public class PlayerController : MonoBehaviour
 	public IEnumerator ReloadWeapon()
 	{
 		Debug.Log("Reloading...");
-		_canShoot = false;
+		WeaponType weaponType = CurrentWeaponType;
+		LockWeapon(weaponType);
 		yield return new WaitForSeconds(GetCurrentWeapon().ReloadSpeed);
 
 		Debug.Log("Done Reloading");
-		_canShoot = true;
+		UnlockWeapon(weaponType);
 
-		if(CurrentWeaponType == WeaponType.Primary && EquippedPrimaryWeapon != null)
+		if(weaponType == WeaponType.Primary && EquippedPrimaryWeapon != null)
 		{
 			_primaryBulletCount = EquippedPrimaryWeapon.ClipSize;
 		}
@@ -385,5 +385,39 @@ public class PlayerController : MonoBehaviour
 	{
 		return (CurrentWeaponType == WeaponType.Primary) 
 			? EquippedPrimaryWeapon : EquippedSecondaryWeapon;
+	}
+
+	private bool CanShootCurrentWeapon()
+	{
+		if(CurrentWeaponType == WeaponType.Primary)
+		{
+			return _canShootPrimary;
+		}
+
+		return _canShootSecondary;
+	}
+
+	private void LockWeapon(WeaponType weaponSlot)
+	{
+		if(weaponSlot == WeaponType.Primary)
+		{
+			_canShootPrimary = false;
+		}
+		else
+		{
+			_canShootSecondary = false;
+		}
+	}
+
+	private void UnlockWeapon(WeaponType weaponSlot)
+	{
+		if(weaponSlot == WeaponType.Primary)
+		{
+			_canShootPrimary = true;
+		}
+		else
+		{
+			_canShootSecondary = true;
+		}
 	}
 }
