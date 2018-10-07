@@ -18,12 +18,14 @@ public class PlayerController : MonoBehaviour
 	private float cooldown = 0f;
 	public GameObject bullet;
 	private bool shotLastFrame;
+	
 
 	public readonly float MAX_HEALTH = 100f;
 
 	// Unity public editor variables
 	public Sprite PlayerPortrait;
 	public ArmoryController Armory;
+	public GameObject PlayerArm;
 
 	// Properties
 	public Weapon EquippedPrimaryWeapon { get; private set; }
@@ -225,7 +227,7 @@ public class PlayerController : MonoBehaviour
 				}
 				else
 				{
-					ShootBullet(transform.rotation);
+					ShootBullet(PlayerArm.transform.rotation);
 				}
 
 				RemoveBulletFromChamber();
@@ -257,11 +259,10 @@ public class PlayerController : MonoBehaviour
 
 		for(int i = 0; i < weapon.BulletsPerShot; i++)
 		{
-			float weaponAccuracy = Random.Range(-1 + weapon.Accuracy, 1 - weapon.Accuracy);
 			float vinkel = (weapon.BulletSpread / 2) - (weapon.BulletSpread / (weapon.BulletsPerShot - 1)) * i;
 
 			Quaternion angle = Quaternion.Euler(0, 0, vinkel);
-			var angleOffset = transform.rotation * angle;
+			var angleOffset = PlayerArm.transform.rotation * angle;
 
 			ShootBullet(angleOffset);
 		}
@@ -275,7 +276,7 @@ public class PlayerController : MonoBehaviour
 		Quaternion angleOffset = Quaternion.Euler(0, 0, weaponAccuracy * 20);
 
 		var test = new Vector3(weapon.BulletSpawnPoint.x, weapon.BulletSpawnPoint.y, 0);
-		var spawnPoint = transform.position + transform.TransformDirection(test);
+		var spawnPoint = PlayerArm.transform.position + PlayerArm.transform.TransformDirection(test);
 		var bulletObject = Instantiate(bullet, spawnPoint, angle * angleOffset);
 
 		var bulletScript = bulletObject.GetComponent<BulletBehavior>();
